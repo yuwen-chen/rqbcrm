@@ -1,5 +1,5 @@
 1. 系统管理后台基本框架，包括用户管理，角色管理，资源链接管理模块，可以动态分配权限和角色。
-2. 使用springboot、springdata jpa、shiro等服务端技术，使用freemarker模版渲染页面。
+2. 使用springboot、springdata jpa、mybatis、shiro等服务端技术，使用freemarker模版渲染页面。
 3. 系统中对springdata的查询条件Specification做了简单的封装，更加方便查询条件的灵活使用。
 4. 前端技术：使用Hadmin系统模版，数据表格使用bootstrap table插件，弹窗使用layer插件，日期选择使用laydate插件。表单验证使用jQuery validate插件等等。
 5. 系统部署：
@@ -11,13 +11,10 @@
         1. 直接导入base.sql脚本到数据库。 
         2. 把application.properties中的数据库连接信息修改成自己数据库的连接信息。 
         3. 修改spring.jpa.hibernate.ddl-auto为none，目的是防止hibernate自动修改表结构。
-6. 系统启动后，访问：127.0.0.1/admin/会自动跳转到后台登录页面。
-7. 初始用户名和密码为：admin/111111。
+6. 系统启动后，访问：127.0.0.1:8080rqbcrm-manager/admin/会自动跳转到后台登录页面。
+7. 初始用户名和密码为：admin/123456。
 8. 演示图片：
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101747_21c1bc11_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101756_5ab80e6b_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101805_f87bd7b4_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101813_39158674_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101823_106d2eb9_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101830_5767b7c1_559378.jpeg "在这里输入图片标题")
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0120/101839_c5700e09_559378.jpeg "在这里输入图片标题")
+![系统登录页面](https://github.com/yuwen-chen/rqbcrm/screenshot/login.png "登录页")
+![用户信息页面](https://github.com/yuwen-chen/rqbcrm/screenshot/user.png "用户页")
+![用户角色页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png "角色页")
+![菜单管理页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png  "菜单页")
