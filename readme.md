@@ -14,7 +14,7 @@
 6. 系统启动后，访问：127.0.0.1:8080rqbcrm-manager/admin/会自动跳转到后台登录页面。
 7. 初始用户名和密码为：admin/123456。
 8. 演示图片：
-![系统登录页面](https://github.com/yuwen-chen/rqbcrm/screenshot/login.png "登录页")
-![用户信息页面](https://github.com/yuwen-chen/rqbcrm/screenshot/user.png "用户页")
-![用户角色页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png "角色页")
-![菜单管理页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png "菜单页")
+![系统登录页面](https://github.com/yuwen-chen/rqbcrm/blob/master/screenshot/login.png "登录页")
+![用户信息页面](https://github.com/yuwen-chen/rqbcrm/blob/master/screenshot/user.png "用户页")
+![用户角色页面](https://github.com/yuwen-chen/rqbcrm/blob/master/screenshot/role.png "角色页")
+![菜单管理页面](https://github.com/yuwen-chen/rqbcrm/blob/master/screenshot/role.png "菜单页")
