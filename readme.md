@@ -17,4 +17,4 @@
 ![系统登录页面](https://github.com/yuwen-chen/rqbcrm/screenshot/login.png "登录页")
 ![用户信息页面](https://github.com/yuwen-chen/rqbcrm/screenshot/user.png "用户页")
 ![用户角色页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png "角色页")
-![菜单管理页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png  "菜单页")
+![菜单管理页面](https://github.com/yuwen-chen/rqbcrm/screenshot/role.png "菜单页")
