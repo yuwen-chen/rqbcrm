@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.rqb.mail.manager</groupId>
-	<artifactId>rqbmail-manager</artifactId>
+	<groupId>com.crm.manager</groupId>
+	<artifactId>crm-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<repositories>
@@ -144,6 +144,12 @@
 		    <artifactId>pagehelper-spring-boot-starter</artifactId>
 		    <version>1.2.1</version>
 		</dependency>
+		
+		<!--mail-->
+		<dependency>  
+		    <groupId>org.springframework.boot</groupId>  
+		    <artifactId>spring-boot-starter-mail</artifactId>  
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -161,7 +167,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.rqb.crm.manager.base.Application</mainClass>
+					<mainClass>com.crm.manager.Application</mainClass>
 					<fork>true</fork>
 				</configuration>
 			</plugin>

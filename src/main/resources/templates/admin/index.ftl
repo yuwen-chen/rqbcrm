@@ -41,7 +41,7 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">CRM后台管理系统
+                        <div class="logo-element">CRM
                         </div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
@@ -79,7 +79,7 @@
                     </li>
                     <li>
 	                    <a href="#">
-                            <i class="fa fa fa-gift"></i>
+                            <i class="fa fa fa-user"></i>
                             <span class="nav-label">CRM管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -105,14 +105,14 @@
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-user"></i> <span class="label label-primary"></span>【<@shiro.principal type="com.rqb.crm.manager.system.dto.UserDTO" property="nickName"/>】
+                                <i class="fa fa-user"></i> <span class="label label-primary"></span>【<@shiro.principal type="com.crm.manager.system.dto.UserDTO" property="nickName"/>】
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li>
                                     <a onclick="updatePwd()">
                                         <div>
                                             <i class="fa fa-refresh"></i> 修改密码
-                                            <span class="pull-right text-muted small"><@shiro.principal type="com.rqb.crm.manager.system.dto.UserDTO" property="userName"/></span>
+                                            <span class="pull-right text-muted small"><@shiro.principal type="com.crm.manager.system.dto.UserDTO" property="userName"/></span>
                                         </div>
                                     </a>
                                 </li>
@@ -120,7 +120,7 @@
                                     <a href="${ctx!}/admin/logout">
                                         <div>
                                             <i class="fa fa-remove"></i> 注销
-                                            <span class="pull-right text-muted small"><@shiro.principal type="com.rqb.crm.manager.system.dto.UserDTO" property="userName"/></span>
+                                            <span class="pull-right text-muted small"><@shiro.principal type="com.crm.manager.system.dto.UserDTO" property="userName"/></span>
                                         </div>
                                     </a>
                                 </li>
