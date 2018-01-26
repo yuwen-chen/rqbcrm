@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +32,7 @@ public class MailController {
 			map.put("username", "yunzhang");
 			map.put("age", "16");
 			sendMessageService.send("REGISTER_SUCCESS_001",email,map);
-			return JsonResult.success("发送成功");
+			return JsonResult.success("邮件发送");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return JsonResult.failure(e.getMessage());
