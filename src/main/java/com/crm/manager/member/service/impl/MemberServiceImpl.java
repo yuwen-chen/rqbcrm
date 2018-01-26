@@ -7,6 +7,7 @@ import com.crm.manager.member.dao.IMemberDao;
 import com.crm.manager.member.domain.Member;
 import com.crm.manager.member.dto.MemberDTO;
 import com.crm.manager.member.service.IMemberService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @Service
@@ -25,10 +26,7 @@ public class MemberServiceImpl implements IMemberService{
 		if(memberDTO == null){
 			return null;
 		}
-		/*PageHelper.startPage(memberDTO.getPageNumber(), memberDTO.getPageSize());  
-		if(memberDTO.getMember() == null){
-			return new PageInfo<Member>(memberDao.queryAllMember());
-		}*/
+		PageHelper.startPage(memberDTO.getPageNumber(), memberDTO.getPageSize());  
 		return new PageInfo<Member>(memberDao.queryMember(memberDTO.getMember()));
 	}
 }
