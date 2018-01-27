@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crm.manager.member.domain.Member;
 import com.crm.manager.member.dto.MemberDTO;
+import com.crm.manager.member.enums.MemberTableEnum;
 import com.crm.manager.member.service.IMemberService;
 import com.github.pagehelper.PageInfo;
 
@@ -26,6 +27,7 @@ public class MemberController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public PageInfo<Member> list(MemberDTO memberInfo) {
+		memberInfo.getMember().setMemberTable(MemberTableEnum.T_A_MEMBER.getName());
 		PageInfo<Member> page = memberService.queryMember(memberInfo);
 		return page;
 	}
