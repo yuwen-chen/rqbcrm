@@ -111,27 +111,65 @@
 			    },
 			    //数据列
 			    columns: [{
-			        title: "ID",
+			        title: "会员ID",
 			        field: "id",
 			        sortable: true
 			    },{
-			        title: "用户名",
-			        field: "name"
+			        title: "真实姓名",
+			        field: "realName"
 			    },{
-			        title: "电话",
+			        title: "手机号",
 			        field: "phone"
+			    },{
+			        title: "证件类型",
+			        field: "indentityType"
+			    },{
+			    	title: "证件号",
+			        field: "indentityNo"
+			    },{
+			        title: "性别",
+			        field: "sex",
+			        formatter: function (value, row, index) {
+                        if (value == 1) {
+                        	return '<span class="label label-info">男</span>';
+                        }
+                    	return '<span class="label label-danger">女</span>';
+                    }
+			    },{
+			        title: "地址",
+			        field: "address"
+			    },{
+			    	title: "用户状态",
+			        field: "userStatus",
+			        formatter: function (value, row, index) {
+                        if (value == '00') {
+                        	return '<span class="label label-info">正常</span>';
+                        }
+                    	return '<span class="label label-danger">冻结</span>';
+                    }
 			    },{
 			        title: "邮箱",
 			        field: "mail"
 			    },{
-			        title: "状态",
-			        sortable: true,
-			        field: "deleteStatus",
-                    formatter: function (value, row, index) {
-                        if (value == '0') 
-                        	return '<span class="label label-info">未删除</span>';
-                        return '<span class="label label-danger">已删除</span>';
+			        title: "app平台",
+			        field: "appPlatform",
+			        formatter: function (value, row, index) {
+                        if (value == 'A') {
+                        	return '<span class="label label-info">融侨宝</span>';
+                        }
+                        if (value == 'B') {
+                        	return '<span class="label label-info">融侨财富</span>';
+                        }
+                        if (value == 'c') {
+                        	return '<span class="label label-info">融侨普惠</span>';
+                        }
                     }
+			    },{
+			    	title: "理财等级",
+			        field: "financialLevel"
+			    },{
+			        title: "注册日期",
+			        field: "registerDate"
 			    },{
 			        title: "操作",
 			        field: "empty",
