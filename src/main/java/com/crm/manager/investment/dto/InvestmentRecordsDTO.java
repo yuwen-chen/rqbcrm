@@ -47,16 +47,6 @@ public class InvestmentRecordsDTO  extends BaseDTO{
     private String productId;
     
     /**
-     * 交易账号ID
-     */
-    private String tradeAccountId;
-    
-    /**
-     * 交易银行卡ID
-     */
-    private String tradeAccountCardId;
-    
-    /**
      * 订单类型(batch_apply-批量申购;apply-单笔申购;withdraw_realtime-实时提现)
      */
     private String orderType;
@@ -130,22 +120,6 @@ public class InvestmentRecordsDTO  extends BaseDTO{
 
 	public void setProductId(String productId) {
 		this.productId = productId;
-	}
-
-	public String getTradeAccountId() {
-		return tradeAccountId;
-	}
-
-	public void setTradeAccountId(String tradeAccountId) {
-		this.tradeAccountId = tradeAccountId;
-	}
-
-	public String getTradeAccountCardId() {
-		return tradeAccountCardId;
-	}
-
-	public void setTradeAccountCardId(String tradeAccountCardId) {
-		this.tradeAccountCardId = tradeAccountCardId;
 	}
 
 	public String getOrderType() {

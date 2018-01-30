@@ -35,8 +35,6 @@ public interface IInvestmentRecordsDao{
 	        "	</if>" +
     		"order_status, " +
     		"product_id, " +
-    		"trade_account_id, " +
-    		"trade_account_card_id, " +
     		"order_type, " +
     		"order_token, " +
     		"channel_trade_id, " +
@@ -53,8 +51,6 @@ public interface IInvestmentRecordsDao{
 	        "	</if>" +
 	        "#{orderStatus}, " +
 	        "#{productId}, " +
-            "#{tradeAccountId}, " +
-            "#{tradeAccountCardId}, " +
             "#{orderType}, " +
             "#{orderToken}, " +
     		"#{channelTradeId}, " +
@@ -89,13 +85,6 @@ public interface IInvestmentRecordsDao{
 		    "	<if test='productId != null'>" + 
 		    "		product_id = #{productId}, " +
 	        "	</if>" +
-
-		    "	<if test='tradeAccountId != null'>" + 
-		    "		trade_account_id = #{tradeAccountId}, " +
-	        "	</if>" +
-		    "	<if test='tradeAccountCardId != null'>" + 
-		    "		trade_account_card_id = #{tradeAccountCardId}, " +
-	        "	</if>" +
 		    "	<if test='orderType != null'>" + 
 		    "		order_type = #{orderType}, " +
 	        "	</if>" +
@@ -123,12 +112,10 @@ public interface IInvestmentRecordsDao{
         @Result(property = "totalPrice", column = "total_price"),
         @Result(property = "orderStatus", column = "order_status"),
         @Result(property = "productId", column = "product_id"),
-        @Result(property = "tradeAccountId", column = "trade_account_id"),
-        @Result(property = "tradeAccountCardId", column = "trade_account_card_id"),
         @Result(property = "orderType", column = "order_type"),
         @Result(property = "orderToken", column = "order_token"),
         @Result(property = "channelTradeId", column = "channel_trade_id"),
-        @Result(property = "investmentTime", column = "investment_time"),
+        @Result(property = "investmentTime", column = "investment_time")
     })
     public List<InvestmentRecordsDTO> queryAllInvestmentRecords();
     
@@ -165,12 +152,6 @@ public interface IInvestmentRecordsDao{
 	        "	<if test='productId != null'>" + 
 	        "		and product_id = #{productId} "+
 	        "	</if>" +
-	        "	<if test='tradeAccountId != null'>" + 
-	        "		and trade_account_id = #{tradeAccountId} "+
-	        "	</if>" +
-	        "	<if test='tradeAccountCardId != null'>" + 
-	        "		and trade_account_card_id = #{tradeAccountCardId} "+
-	        "	</if>" +
 	        "	<if test='orderType != null'>" + 
 	        "		and order_type = #{orderType} "+
 	        "	</if>" +
@@ -190,12 +171,10 @@ public interface IInvestmentRecordsDao{
         @Result(property = "totalPrice", column = "total_price"),
         @Result(property = "orderStatus", column = "order_status"),
         @Result(property = "productId", column = "product_id"),
-        @Result(property = "tradeAccountId", column = "trade_account_id"),
-        @Result(property = "tradeAccountCardId", column = "trade_account_card_id"),
         @Result(property = "orderType", column = "order_type"),
         @Result(property = "orderToken", column = "order_token"),
         @Result(property = "channelTradeId", column = "channel_trade_id"),
-        @Result(property = "investmentTime", column = "investment_time"),
+        @Result(property = "investmentTime", column = "investment_time")
     })
     public List<StaffDTO> queryStaff(StaffDTO staffDTO);
     
@@ -214,12 +193,10 @@ public interface IInvestmentRecordsDao{
         @Result(property = "totalPrice", column = "total_price"),
         @Result(property = "orderStatus", column = "order_status"),
         @Result(property = "productId", column = "product_id"),
-        @Result(property = "tradeAccountId", column = "trade_account_id"),
-        @Result(property = "tradeAccountCardId", column = "trade_account_card_id"),
         @Result(property = "orderType", column = "order_type"),
         @Result(property = "orderToken", column = "order_token"),
         @Result(property = "channelTradeId", column = "channel_trade_id"),
-        @Result(property = "investmentTime", column = "investment_time"),
+        @Result(property = "investmentTime", column = "investment_time")
     })
     public InvestmentRecordsDTO queryInvestmentRecordsByOrderNo(@Param(value = "orderNo") String orderNo);
     
