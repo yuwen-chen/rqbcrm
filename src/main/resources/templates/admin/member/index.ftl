@@ -33,17 +33,41 @@
                     </div>
                     <div class="ibox-content">
                         <p>
-                        	<@shiro.hasPermission name="system:user:add">
+                        	<@shiro.hasPermission name="crm:member:add">
                         		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
                         	</@shiro.hasPermission>
                         </p>
                         <hr>
+                        <!--查询窗体-->
+                        <div>
+	                    	<table style="width:100%">
+	                    		<tr class="" style=""> 
+	                    			<td style="padding: 8px;">
+	                    				<label class="pull-right" >app平台：</label>
+	                    			</td>
+	                    			<td style="">
+	                    				<div class="" style="width: 105px;">
+		                                	<select id = "appType" name="memberTable" class="form-control">
+		                                		<#list appPlatformList! as appPlatform> 
+		                                			<option value="${appPlatform.type!}">${appPlatform.desc!}</option>
+												</#list>
+		                                	</select>
+		                                </div>
+	                    			</td>
+	                    			
+	                    			<td  style="">
+	                    				<div class="pull-right" style=""><button class="btn btn-primary" id="querybtn">查询</button></div>
+	                    			</td>
+	                    		</tr>
+	                    	<table>
+	                    </div>
+	                    <hr>
                         <div class="row row-lg">
 		                    <div class="col-sm-12">
 		                        <!-- Example Card View -->
 		                        <div class="example-wrap">
 		                            <div class="example">
-		                            	<table id="table_list"></table>
+		                            	<table id="table_list" style="border-width: 0px;"></table>
 		                            </div>
 		                        </div>
 		                        <!-- End Example Card View -->
@@ -74,8 +98,19 @@
 
     <!-- Page-Level Scripts -->
     <script>
-        $(document).ready(function () {
-        	//初始化表格,动态从服务器加载数据  
+		$(document).ready(function () {
+			//调用函数，初始化表格  
+			initTable();  
+  
+			//当点击查询按钮的时候执行  
+			$("#querybtn").bind("click", initTable);  
+		});
+        
+		//初始化数据
+		function initTable() { 
+			//先销毁表格  
+			$('#table_list').bootstrapTable('destroy'); 
+			//初始化表格,动态从服务器加载数据  
 			$("#table_list").bootstrapTable({
 			    //使用get请求到服务器获取数据  
 			    method: "POST",
@@ -100,7 +135,20 @@
 			    //表示服务端请求  
 			    sidePagination: "server",
 			    //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder  
-			    //设置为limit可以获取limit, offset, search, sort, order  
+			    //设置为limit可以获取limit, offset, search, sort, order 
+			    search: false, // 不显示 搜索框
+			    classes: 'table table-bordered', // Class样式
+				// showRefresh : true, // 显示刷新按钮
+				silent: true, // 必须设置刷新事件
+				//queryParams: queryParams, // 请求参数，这个关系到后续用到的异步刷新
+				queryParams: function queryParams(params) {   //设置查询参数
+					var param = {    
+						pageNumber:params.pageNumber,  
+						pageSize:params.pageSize,
+						memberTable:$("#appType").val()
+  					};    
+      				return param;                     
+	            },
 			    queryParamsType: "undefined",
 			    //json数据解析
 			    responseHandler: function(res) {
@@ -149,7 +197,7 @@
                     }
 			    },{
 			        title: "邮箱",
-			        field: "mail"
+			        field: "email"
 			    },{
 			        title: "app平台",
 			        field: "appPlatform",
@@ -160,7 +208,7 @@
                         if (value == 'B') {
                         	return '<span class="label label-info">融侨财富</span>';
                         }
-                        if (value == 'c') {
+                        if (value == 'C') {
                         	return '<span class="label label-info">融侨普惠</span>';
                         }
                     }
@@ -171,20 +219,78 @@
 			        title: "注册日期",
 			        field: "registerDate"
 			    },{
+			        title: "人员编号",
+			        field: "staffNo"
+			    
+			    },{
 			        title: "操作",
 			        field: "empty",
                     formatter: function (value, row, index) {
                     	var operateHtml = '<@shiro.hasPermission name="system:user:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
                     	operateHtml = operateHtml + '<@shiro.hasPermission name="system:user:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="system:user:grant"><button class="btn btn-info btn-xs" type="button" onclick="grant(\''+row.id+'\')"><i class="fa fa-arrows"></i>&nbsp;关联角色</button></@shiro.hasPermission>';
                         return operateHtml;
                     }
 			    }]
 			});
-        });
+		}
+		
+		
+		
+        function add(){
+        	layer.open({
+        	      type: 2,
+        	      title: '会员添加',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/member/add',
+        	      end: function(index){
+        	      		initTable(); 
+        	    	  //$('#table_list').bootstrapTable("refresh");
+       	    	  }
+        	    });
+        }
         
+        function edit(id){
+        	layer.open({
+        	      type: 2,
+        	      title: '用户修改',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/member/edit/' + id,
+        	      end: function(index){
+        	    	  initTable(); 
+        	    	  //$('#table_list').bootstrapTable("refresh");
+       	    	  }
+        	    });
+        }
+        
+        function del(id){
+        	layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
+        		$.ajax({
+    	    		   type: "POST",
+    	    		   dataType: "json",
+    	    		   url: "${ctx!}/admin/member/delete/" + id,
+    	    		   success: function(msg){
+	 	   	    			layer.msg(msg.message, {time: 2000},function(){
+	 	   	    				initTable(); 
+	 	   	    				//$('#table_list').bootstrapTable("refresh");
+	 	   	    				layer.close(index);
+	 	   					});
+    	    		   }
+    	    	});
+       		});
+        }
+		
+	  
     </script>
-
+	<style>
+	
+		
+		
+	<style>
+	
     
     
 

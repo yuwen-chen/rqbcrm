@@ -1,22 +1,22 @@
 package com.crm.manager.member.enums;
 
-public enum MemberTableEnum {
-	T_A_MEMBER("A", "t_a_member","融侨宝"),
-	T_B_MEMBER("B", "t_b_member","金管家"),
-	T_C_MEMBER("C", "t_c_member","融侨普惠"),;
+public enum MemberCodeTableEnum {
+	T_A_MEMBER_CODE("A", "t_a_member_code","融侨宝"),
+	T_B_MEMBER_CODE("B", "t_b_member_code","金管家"),
+	T_C_MEMBER_CODE("C", "t_c_member_code","融侨普惠"),;
 	
 	private String type;
 	private String name;
 	private String desc;
 	
-	private MemberTableEnum(String type, String name, String desc) {
+	private MemberCodeTableEnum(String type, String name, String desc) {
 		this.type = type;
 		this.name = name;
 		this.desc = desc;
 	}
 	
-	public static MemberTableEnum getMemberTableEnumByType(String type) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	public static MemberCodeTableEnum getMemberTableCodeEnumByType(String type) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getType().equals(type)) {  
 	            return mte;  
 	        }  
@@ -24,8 +24,8 @@ public enum MemberTableEnum {
 	    return null;  
 	}
 	
-	public static MemberTableEnum getMemberTableEnumByName(String name) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	public static MemberCodeTableEnum getMemberTableCodeEnumByName(String name) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getName().equals(name)) {  
 	            return mte;  
 	        }  
@@ -34,7 +34,7 @@ public enum MemberTableEnum {
 	}
 	
 	public static String getName(String type) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getType().equals(type)) {  
 	            return mte.name;  
 	        }  
@@ -43,7 +43,7 @@ public enum MemberTableEnum {
 	} 
 	
 	public static String getDescByType(String type) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getType().equals(type)) {  
 	            return mte.desc;  
 	        }  
@@ -52,7 +52,7 @@ public enum MemberTableEnum {
 	}
 	
 	public static String getDescByName(String name) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getName().equals(name)) {  
 	            return mte.desc;  
 	        }  
@@ -61,7 +61,7 @@ public enum MemberTableEnum {
 	}
 	
 	public static String getType(String name) {  
-	    for (MemberTableEnum mte : MemberTableEnum.values()) {  
+	    for (MemberCodeTableEnum mte : MemberCodeTableEnum.values()) {  
 	        if (mte.getName().equals(name)) {  
 	            return mte.type;  
 	        }  

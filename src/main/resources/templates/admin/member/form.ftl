@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>用户添加</title>
+    <title>会员信息</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
@@ -31,63 +31,106 @@
                         <form class="form-horizontal m-t" id="frm" method="post" action="${ctx!}/admin/user/edit">
                         	<input type="hidden" id="id" name="id" value="${user.id}">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">账户名：</label>
+                                <label class="col-sm-3 control-label">会员ID：</label>
                                 <div class="col-sm-8">
-                                    <input id="userName" name="userName" class="form-control" type="text" value="${user.userName}" <#if user?exists> readonly="readonly"</#if> >
+                                    <input id="id" name="id" class="form-control" type="text" value="${member.id}" <#if user?exists> readonly="readonly"</#if> >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">昵称：</label>
+                                <label class="col-sm-3 control-label">手机号：</label>
                                 <div class="col-sm-8">
-                                    <input id="nickName" name="nickName" class="form-control" type="text" value="${user.nickName}">
+                                    <input id="phone" name="phone" class="form-control" type="text" value="${member.phone}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">真实姓名：</label>
+                                <div class="col-sm-8">
+                                    <input id="realName" name="realName" class="form-control" type="text" value="${member.realName}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">证件类型：</label>
+                                <div class="col-sm-8">
+                                	<select name="indentityType" class="form-control">
+                                		<option value="01" <#if member.indentityType == "01">selected="selected"</#if>>身份证</option>
+                                		<option value="02" <#if member.indentityType == "02">selected="selected"</#if>>因私护照</option>
+                                		<option value="03" <#if member.indentityType == "03">selected="selected"</#if>>因公护照</option>
+                                		<option value="04" <#if member.indentityType == "04">selected="selected"</#if>>香港永久性居民身份证</option>
+                                		<option value="05" <#if member.indentityType == "05">selected="selected"</#if>>澳门永久性居民身份证</option>
+                                		<option value="06" <#if member.indentityType == "06">selected="selected"</#if>>港澳居民来往内地通行证</option>
+                                		<option value="07" <#if member.indentityType == "07">selected="selected"</#if>>台湾居民来往大陆通行证</option>
+                                		<option value="08" <#if member.indentityType == "08">selected="selected"</#if>>外国人永久居住证</option>
+                                		<option value="09" <#if member.indentityType == "09">selected="selected"</#if>>其他证件</option>
+                                	</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">证件号：</label>
+                                <div class="col-sm-8">
+                                    <input id="indentityNo" name="indentityNo" class="form-control" type="text" value="${member.indentityNo}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">性别：</label>
                                 <div class="col-sm-8">
                                 	<select name="sex" class="form-control">
-                                		<option value="0" <#if user.sex == 0>selected="selected"</#if>>女</option>
-                                		<option value="1" <#if user.sex == 1>selected="selected"</#if>>男</option>
+                                		<option value = 1 <#if member.sex == 1>selected="selected"</#if>>男</option>
+                                		<option value = 2 <#if member.sex == 2>selected="selected"</#if>>女</option>
                                 	</select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">出生日期：</label>
-                                <div class="col-sm-8">
-                                    <input id="birthday" name="birthday" readonly="readonly" class="laydate-icon form-control layer-date" value="${user.birthday}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">电话：</label>
-                                <div class="col-sm-8">
-                                    <input id="telephone" name="telephone" class="form-control" value="${user.telephone}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">E-mail：</label>
-                                <div class="col-sm-8">
-                                    <input id="email" name="email" class="form-control" value="${user.email}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">地址：</label>
                                 <div class="col-sm-8">
-                                    <input id="address" name="address" class="form-control" value="${user.address}">
+                                    <input id="address" name="address" class="form-control" type="text" value="${member.address}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">状态：</label>
+                                <label class="col-sm-3 control-label">用户状态：</label>
                                 <div class="col-sm-8">
-                                	<select name="locked" class="form-control">
-                                		<option value="0" <#if user.locked == 0>selected="selected"</#if>>未锁定</option>
-                                		<option value="1" <#if user.locked == 1>selected="selected"</#if>>锁定</option>
+                                	<select name="userStatus" class="form-control">
+                                		<option value = "00" <#if member.userStatus == "00">selected="selected"</#if>>正常</option>
+                                		<option value = "01" <#if member.userStatus == "01">selected="selected"</#if>>冻结</option>
                                 	</select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">描述：</label>
+                                <label class="col-sm-3 control-label">电子邮件：</label>
                                 <div class="col-sm-8">
-                                    <input id="description" name="description" class="form-control" value="${user.description}">
+                                    <input id="email" name="email" class="form-control" value="${member.email}">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="col-sm-3 control-label">用户状态：</label>
+                                <div class="col-sm-8">
+                                	<select name="appPlatform" class="form-control">
+                                		<option value = "A" <#if member.appPlatform == "A">selected="selected"</#if>>融侨宝</option>
+                                		<option value = "B" <#if member.appPlatform == "B">selected="selected"</#if>>金管家</option>
+                                		<option value = "C" <#if member.appPlatform == "C">selected="selected"</#if>>融侨普惠</option>
+                                	</select>
+                                </div>
+                            </div>-->
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">理财等级：</label>
+                                <div class="col-sm-8">
+                                    <input id="financialLevel" name="financialLevel" class="form-control" onkeyup="value=value.replace(/\D|^0/g,'')" placeholder="请输入数字0-5" value="${member.financialLevel}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">注册日期：</label>
+                                <div class="col-sm-8">
+                                    <input id="registerDate" name="registerDate" class="form-control" value="${member.registerDate}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">工作人员编号：</label>
+                                <div class="col-sm-8">
+                                	<select name="staffNo" class="form-control">
+                                		<option value="G" <#if user.staffNo == 0>selected="selected"</#if>>G</option>
+                                		<option value="H" <#if user.staffNo == 1>selected="selected"</#if>>H</option>
+                                	</select>
                                 </div>
                             </div>
                             <div class="form-group">

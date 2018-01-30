@@ -1,4 +1,4 @@
-package com.crm.manager.member.controller;
+/*package com.crm.manager.staff.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/admin/member")
-public class MemberController {
+public class StaffController {
 	
 	@Autowired
 	IMemberService memberService;
@@ -33,3 +33,4 @@ public class MemberController {
 	}
 
 }
+*/

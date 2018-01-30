@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.crm.manager.Application;
 import com.crm.manager.member.dao.IMemberDao;
-import com.crm.manager.member.domain.Member;
+import com.crm.manager.member.dto.MemberDTO;
 import com.crm.manager.member.enums.MemberTableEnum;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -20,15 +20,15 @@ import com.github.pagehelper.PageInfo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class MemberTest {
+public class MemberDaoTest {
 	
 	@Autowired
 	IMemberDao memberMapper;
 	
 	@Test
 	public void TestAdd(){
-		for(int i=1;i<=10;i++){
-			Member member = new Member();
+		for(int i=0;i<7;i++){
+			MemberDTO member = new MemberDTO();
 			member.setId("UID000"+i);
 			member.setPhone("13526455623");
 			member.setRealName("张三"+i);
@@ -40,18 +40,41 @@ public class MemberTest {
 			member.setEmail("123@qq.com");
 			member.setAppPlatform("C");
 			member.setFinancialLevel(1);
+			member.setStaffNo("G");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyMM");
 			member.setRegisterDate(sdf.format(new Date()));
-			member.setMemberTable("t_b_member");
+			member.setMemberTable("B");
 			memberMapper.insertMember(member);
 		}
+	}
+	
+	@Test
+	public void TestUpdate(){
+		MemberDTO member = new MemberDTO();
+		member.setId("UID0001");
+		member.setPhone("4444444444444");
+		member.setRealName("张三aaaaaa");
+		member.setIndentityType("01");
+		member.setIndentityNo("315645894522244");
+		member.setSex(1);
+		member.setAddress("上海");
+		member.setUserStatus("01");
+		member.setEmail("123@qq.com");
+		member.setAppPlatform("C");
+		member.setFinancialLevel(1);
+		member.setStaffNo("G");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMM");
+		member.setRegisterDate(sdf.format(new Date()));
+		member.setMemberTable("A");
+		int a= memberMapper.updateMember(member);
+		System.out.println(a);
 	}
 	
 	@Test
 	public void TestQuery(){
 		//分页插件: 查询第1页，每页10行 
 	    PageHelper.startPage(1, 10);  
-	    Member member = new Member();
+	    MemberDTO member = new MemberDTO();
 	    member.setMemberTable(MemberTableEnum.T_B_MEMBER.getName());
 	    member.setId("UID0001");
 		member.setPhone("13526455623");
@@ -64,9 +87,9 @@ public class MemberTest {
 		member.setEmail("123@qq.com");
 		//member.setAppPlatform(MemberTableEnum.T_C_MEMBER.getType());
 		member.setFinancialLevel(1);
-	    PageInfo<Member> page =new PageInfo<Member>(memberMapper.queryMember(member));
-		List<Member> list = page.getList();
-		for(Member mem : list){
+	    PageInfo<MemberDTO> page =new PageInfo<MemberDTO>(memberMapper.queryMember(member));
+		List<MemberDTO> list = page.getList();
+		for(MemberDTO mem : list){
 			System.out.println(mem);
 		}
 		page.getPageNum();
@@ -74,6 +97,22 @@ public class MemberTest {
 		System.out.println(page.getPageSize());
 		System.out.println(page.getPages());
 		
+	}
+	
+	@Test
+	public void TestQueryById(){
+		MemberDTO member = new MemberDTO();
+		member.setMemberTable("A");
+	    MemberDTO member1 = memberMapper.queryMemberById(member.getMemberTable(), "UID0000");
+		System.out.println(member1);
+	}
+	
+	@Test
+	public void TestDeleteById(){
+		MemberDTO member = new MemberDTO();
+		member.setMemberTable("A");
+	    int a = memberMapper.deleteMemberById(member.getMemberTable(), "UID0000");
+		System.out.println(a);
 	}
 
 }
