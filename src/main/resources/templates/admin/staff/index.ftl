@@ -29,39 +29,15 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>会员管理</h5>
+                        <h5>工作人员管理</h5>
                     </div>
                     <div class="ibox-content">
                         <p>
-                        	<@shiro.hasPermission name="crm:member:add">
+                        	<@shiro.hasPermission name="crm:staff:add">
                         		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
                         	</@shiro.hasPermission>
                         </p>
                         <hr>
-                        <!--查询窗体-->
-                        <div>
-	                    	<table style="width:100%">
-	                    		<tr class="" style=""> 
-	                    			<td style="padding: 8px;">
-	                    				<label class="pull-right" >app平台：</label>
-	                    			</td>
-	                    			<td style="">
-	                    				<div class="" style="width: 105px;">
-		                                	<select id = "appType" name="memberTable" class="form-control">
-		                                		<#list appPlatformList! as appPlatform> 
-		                                			<option value="${appPlatform.type!}">${appPlatform.desc!}</option>
-												</#list>
-		                                	</select>
-		                                </div>
-	                    			</td>
-	                    			
-	                    			<td  style="">
-	                    				<div class="pull-right" style=""><button class="btn btn-primary" id="querybtn">查询</button></div>
-	                    			</td>
-	                    		</tr>
-	                    	<table>
-	                    </div>
-	                    <hr>
                         <div class="row row-lg">
 		                    <div class="col-sm-12">
 		                        <!-- Example Card View -->
@@ -117,7 +93,7 @@
 			    //必须设置，不然request.getParameter获取不到请求参数
 			    contentType: "application/x-www-form-urlencoded",
 			    //获取数据的Servlet地址  
-			    url: "${ctx!}/admin/member/list",
+			    url: "${ctx!}/admin/staff/list",
 			    //表格显示条纹  
 			    striped: true,
 			    //启动分页  
@@ -141,14 +117,14 @@
 				// showRefresh : true, // 显示刷新按钮
 				silent: true, // 必须设置刷新事件
 				//queryParams: queryParams, // 请求参数，这个关系到后续用到的异步刷新
-				queryParams: function queryParams(params) {   //设置查询参数
+				/*queryParams: function queryParams(params) {   //设置查询参数
 					var param = {    
 						pageNumber:params.pageNumber,  
 						pageSize:params.pageSize,
 						memberTable:$("#appType").val()
   					};    
       				return param;                     
-	            },
+	            },*/
 			    queryParamsType: "undefined",
 			    //json数据解析
 			    responseHandler: function(res) {
@@ -159,21 +135,15 @@
 			    },
 			    //数据列
 			    columns: [{
-			        title: "会员ID",
-			        field: "id",
+			        title: "工作人员编号",
+			        field: "staffNo",
 			        sortable: true
 			    },{
-			        title: "真实姓名",
-			        field: "realName"
+			        title: "工作人员名称",
+			        field: "name"
 			    },{
 			        title: "手机号",
 			        field: "phone"
-			    },{
-			        title: "证件类型",
-			        field: "indentityType"
-			    },{
-			    	title: "证件号",
-			        field: "indentityNo"
 			    },{
 			        title: "性别",
 			        field: "sex",
@@ -184,50 +154,27 @@
                     	return '<span class="label label-danger">女</span>';
                     }
 			    },{
-			        title: "地址",
-			        field: "address"
-			    },{
-			    	title: "用户状态",
-			        field: "userStatus",
+			    	title: "状态",
+			        field: "status",
 			        formatter: function (value, row, index) {
                         if (value == '00') {
                         	return '<span class="label label-info">正常</span>';
                         }
-                    	return '<span class="label label-danger">冻结</span>';
+                    	return '<span class="label label-danger">失效</span>';
                     }
 			    },{
 			        title: "邮箱",
 			        field: "email"
 			    },{
-			        title: "app平台",
-			        field: "appPlatform",
-			        formatter: function (value, row, index) {
-                        if (value == 'A') {
-                        	return '<span class="label label-info">融侨宝</span>';
-                        }
-                        if (value == 'B') {
-                        	return '<span class="label label-info">融侨财富</span>';
-                        }
-                        if (value == 'C') {
-                        	return '<span class="label label-info">融侨普惠</span>';
-                        }
-                    }
-			    },{
-			    	title: "理财等级",
-			        field: "financialLevel"
-			    },{
-			        title: "注册日期",
-			        field: "registerDate"
-			    },{
-			        title: "人员编号",
-			        field: "staffNo"
-			    
+			        title: "会员人数",
+			        field: "memberNum"
 			    },{
 			        title: "操作",
 			        field: "empty",
                     formatter: function (value, row, index) {
-                    	var operateHtml = '<@shiro.hasPermission name="crm:member:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:member:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
+                    	var operateHtml = '<@shiro.hasPermission name="crm:staff:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.staffNo+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
+                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.staffNo+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
+                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:allotrecords"><button class="btn btn-info btn-xs" type="button" onclick="allotRecords(\''+row.staffNo+'\')"><i class="fa fa-arrows"></i>&nbsp;分配记录</button></@shiro.hasPermission>';
                         return operateHtml;
                     }
 			    }]
@@ -239,11 +186,11 @@
         function add(){
         	layer.open({
         	      type: 2,
-        	      title: '会员添加',
+        	      title: '工作人员添加',
         	      shadeClose: true,
         	      shade: false,
         	      area: ['893px', '600px'],
-        	      content: '${ctx!}/admin/member/addview',
+        	      content: '${ctx!}/admin/staff/addview',
         	      end: function(index){
         	      		initTable(); 
         	    	  //$('#table_list').bootstrapTable("refresh");
@@ -251,56 +198,44 @@
         	    });
         }
         
-        /*function edit(id,appPlatform){
-	        $.ajax({  
-			      type: 'POST',  
-			      url: '${ctx!}/admin/member/editview',//发送请求  
-			      data: {id:id,memberTable:appPlatform},  
-			      dataType : "html",  
-			      success: function(result) {  
-			          var htmlCont = result;//返回的结果页面  
-			          layer.open({
-		        	      type: 1,
-		        	      title: '会员修改',
-		        	      shadeClose: true,
-		        	      shade: false,
-		        	      area: ['893px', '600px'],
-		        	      content: htmlCont,
-		        	      end: function(index){
-		        	    	  initTable(); 
-		        	    	  //$('#table_list').bootstrapTable("refresh");
-		       	    	  }
-					});
-				}  
-			}); 
-        }*/
-        
-        function edit(id,appPlatform){
+        function edit(staffNo){
 			layer.open({
 				type: 2,
-				title: '会员修改',
+				title: '工作人员修改',
 				shadeClose: true,
 				shade: false,
 				area: ['893px', '600px'],
-				content: '${ctx!}/admin/member/editview/'+appPlatform+'/'+id,//发送请求  
+				content: '${ctx!}/admin/staff/editview/'+staffNo,//发送请求  
 				end: function(index){
 					initTable(); 
-					//$('#table_list').bootstrapTable("refresh");
 				}
 			});
         }
         
-        function del(id,appPlatform){
+        function allotRecords(staffNo){
+			layer.open({
+				type: 2,
+				title: '分配记录',
+				shadeClose: true,
+				shade: false,
+				area: ['893px', '600px'],
+				content: '${ctx!}/admin/staff/allotrecords/'+staffNo,//发送请求  
+				end: function(index){
+					//initTable(); 
+				}
+			});
+        }
+        
+        function del(staffNo){
         	layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
         		$.ajax({
     	    		   type: "POST",
     	    		   dataType: "json",
-    	    		   url: "${ctx!}/admin/member/delete/" + id,
-    	    		   data: {id:id,memberTable:appPlatform},  
+    	    		   url: "${ctx!}/admin/staff/delete/" + staffNo,
+    	    		   data: {staffNo:staffNo},  
     	    		   success: function(msg){
 	 	   	    			layer.msg(msg.message, {time: 2000},function(){
 	 	   	    				initTable(); 
-	 	   	    				//$('#table_list').bootstrapTable("refresh");
 	 	   	    				layer.close(index);
 	 	   					});
     	    		   }

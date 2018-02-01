@@ -75,7 +75,7 @@ public interface IStaffAllotRecordsDao{
         @Result(property = "id", column = "id"),
         @Result(property = "staffNo", column = "staff_no"),
         @Result(property = "memberId", column = "member_id"),
-        @Result(property = "allot_time", column = "allotTime")
+        @Result(property = "allotTime", column = "allot_time")
     })
     public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(@Param(value = "staffNo") String staffNo);
     

@@ -53,7 +53,7 @@
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
-                    <li>
+                    <li name="menu">
                         <a href="#">
                             <i class="fa fa fa-cog"></i>
                             <span class="nav-label">系统管理</span>
@@ -77,7 +77,7 @@
                          </@shiro.hasPermission>
                         </ul>
                     </li>
-                    <li>
+                    <li name="menu">
 	                    <a href="#">
                             <i class="fa fa fa-user"></i>
                             <span class="nav-label">CRM管理</span>
@@ -87,6 +87,16 @@
                          <@shiro.hasPermission name="crm:member:index">
                             <li>
                                <a class="J_menuItem" href="${ctx!}/admin/member/index">会员管理</a>
+                            </li>
+                         </@shiro.hasPermission>
+                         <@shiro.hasPermission name="crm:membercode:index">
+                            <li>
+                               <a class="J_menuItem" href="${ctx!}/admin/membercode/index">会员编码管理</a>
+                            </li>
+                         </@shiro.hasPermission>
+                         <@shiro.hasPermission name="crm:staff:index">
+                            <li>
+                               <a class="J_menuItem" href="${ctx!}/admin/staff/index">工作人员管理</a>
                             </li>
                          </@shiro.hasPermission>
                         </ul>
@@ -147,19 +157,30 @@
     <script src="${ctx!}/assets/js/hAdmin.js?v=4.1.0"></script>
     <script type="text/javascript" src="${ctx!}/assets/js/index.js"></script>
     <script type="text/javascript">
-    function updatePwd(){
-		layer.open({
-	      type: 2,
-	      title: '修改密码',
-	      shadeClose: true,
-	      shade: false,
-	      area: ['893px', '600px'],
-	      content: '${ctx!}/admin/user/updatePwd',
-	      end: function(index){
-	    	  window.location.reload();
-	    	 }
-	    });
-	}
+    
+	    $(document).ready(function () {
+	    	//隐藏没权限的菜单
+			$("li[name='menu']").each(function(j,item){
+				if($(this).find("li").length == 0){
+					$(this).hide();
+				}
+			   //console.log(item.value); //输出input 中的 value 值到控制台
+			});
+		});
+		
+	    function updatePwd(){
+			layer.open({
+		      type: 2,
+		      title: '修改密码',
+		      shadeClose: true,
+		      shade: false,
+		      area: ['893px', '600px'],
+		      content: '${ctx!}/admin/user/updatePwd',
+		      end: function(index){
+		    	  window.location.reload();
+		    	 }
+		    });
+		}
 </script>
 </body>
 

@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.crm.manager.member.dto.MemberCodeDTO;
-import com.crm.manager.member.dto.MemberDTO;
 
 @Mapper
 public interface IMemberCodeDao{
@@ -138,7 +137,7 @@ public interface IMemberCodeDao{
         @Result(property = "birthdate", column = "birthdate"),
         @Result(property = "sex", column = "sex"),
         @Result(property = "staffNo", column = "staff_no"),
-        @Result(property = "code_no", column = "codeNo"),
+        @Result(property = "codeNo", column = "code_no")
     })
     public List<MemberCodeDTO> queryAllMemberCode(@Param(value = "memberCodeTable") String memberCodeTable);
     
@@ -202,7 +201,7 @@ public interface IMemberCodeDao{
         @Result(property = "birthdate", column = "birthdate"),
         @Result(property = "sex", column = "sex"),
         @Result(property = "staffNo", column = "staff_no"),
-        @Result(property = "code_no", column = "codeNo"),
+        @Result(property = "codeNo", column = "code_no")
     })
     public List<MemberCodeDTO> queryMemberCode(MemberCodeDTO memberCodeDTO);
     
@@ -226,7 +225,7 @@ public interface IMemberCodeDao{
         @Result(property = "birthdate", column = "birthdate"),
         @Result(property = "sex", column = "sex"),
         @Result(property = "staffNo", column = "staff_no"),
-        @Result(property = "code_no", column = "codeNo"),
+        @Result(property = "codeNo", column = "code_no")
     })
     public MemberCodeDTO queryMemberCodeByMemberId(@Param(value = "memberCodeTable") String memberCodeTable, @Param(value = "memberId") String memberId);
     

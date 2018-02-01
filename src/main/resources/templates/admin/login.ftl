@@ -46,7 +46,7 @@
         </div>
         <div class="signup-footer">
             <div class="pull-left">
-                &copy; rqb
+                &copy; crm
             </div>
         </div>
     </div>

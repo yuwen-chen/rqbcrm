@@ -52,7 +52,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<ResourceDTO, Integer>
 		RoleDTO roleDTO = roleService.find(roleId);
 		Set<ResourceDTO> roleResources = roleDTO.getResources();
 		resulTreeNodes.add(new ZtreeView(0L, null, "系统菜单", true));
-		resulTreeNodes.add(new ZtreeView(20000L, null, "积分菜单", true));
+		resulTreeNodes.add(new ZtreeView(100L, null, "CRM菜单", true));
 		ZtreeView node;
 		List<ResourceDTO> all = resourceDao.findAllByOrderByParentAscIdAscSortAsc();
 		for (ResourceDTO resource : all) {
@@ -62,8 +62,8 @@ public class ResourceServiceImpl extends BaseServiceImpl<ResourceDTO, Integer>
 				if(resource.getSourceKey().startsWith("system:")){
 					node.setpId(0L);
 				}
-				if(resource.getSourceKey().startsWith("integral:")){
-					node.setpId(20000L);
+				if(resource.getSourceKey().startsWith("crm:")){
+					node.setpId(100L);
 				}
 			} else {
 				node.setpId(Long.valueOf(resource.getParent().getId()));

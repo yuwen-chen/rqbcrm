@@ -16,7 +16,7 @@ import com.crm.manager.system.dto.ResourceDTO;
 public interface IResourceDao extends IBaseDao<ResourceDTO, Integer> {
 
 	@Modifying
-	@Query(nativeQuery = true,value = "DELETE FROM rqb_role_resource WHERE resource_id = :id")
+	@Query(nativeQuery = true,value = "DELETE FROM t_role_resource WHERE resource_id = :id")
 	void deleteGrant(@Param("id") Integer id);
 
 	Page<ResourceDTO> findAllByNameContaining(String searchText, Pageable pageable);

@@ -33,7 +33,6 @@ public interface IStaffDao{
 		    "		status, " +
 	        "	</if>" +
     		"email, " +
-    		"member_num, " +
     		"create_time, " +
     		"update_time "+
     		") values ( " +
@@ -46,7 +45,6 @@ public interface IStaffDao{
             "		#{status}, " +
 	        "	</if>" +
             "#{email}, " +
-    		"#{memberNum}, " +
             "now(), now()" +
     		") "+
 			"</script>")
@@ -106,7 +104,7 @@ public interface IStaffDao{
     /**
      * 查询工作人员会员人数最少的一个
      */
-    @Select(" SELECT * FROM t_staff order by member_num,staff_no asc limit 1 ")
+    @Select(" SELECT * FROM t_staff where status = '00' order by member_num,staff_no asc limit 1 ")
     @Results({
         @Result(property = "id", column = "id"),
         @Result(property = "staffNo", column = "staff_no"),
@@ -117,7 +115,7 @@ public interface IStaffDao{
         @Result(property = "mail", column = "mail"),
         @Result(property = "memberNum", column = "member_num")
     })
-    public StaffDTO queryAllStaffOrderByMemberNum();
+    public StaffDTO queryMinMemberNumStaff();
     
     /**
      * 查询工作人员信息

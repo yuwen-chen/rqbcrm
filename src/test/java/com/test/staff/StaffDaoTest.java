@@ -94,7 +94,7 @@ public class StaffDaoTest {
 	
 	@Test 
 	public void queryTestOrderBYmemberNum(){
-		StaffDTO staff = staffDao.queryAllStaffOrderByMemberNum();
+		StaffDTO staff = staffDao.queryMinMemberNumStaff();
 		System.out.println(staff.getStaffNo());
 	}
 	

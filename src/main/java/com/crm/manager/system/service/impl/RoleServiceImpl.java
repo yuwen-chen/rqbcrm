@@ -84,7 +84,9 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Integer> implement
 				}
 				Integer rid = Integer.parseInt(resourceIds[i]);
 				resource = resourceService.find(rid);
-				resources.add(resource);
+				if(resource != null){
+					resources.add(resource);
+				}
 			}
 		}
 		roleDTO.setResources(resources);

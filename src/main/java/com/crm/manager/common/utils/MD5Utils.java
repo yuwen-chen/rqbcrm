@@ -3,6 +3,8 @@ package com.crm.manager.common.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.util.StringUtils;
 
@@ -74,7 +76,7 @@ public class MD5Utils {
 
 	
 	public static void main(String[] args) {
-		System.out.println(md5("111111"));;
+		/*System.out.println(md5("111111"));;
 		
 		System.out.println(generatePasswordMD5("123456","111111"));
 		
@@ -82,7 +84,14 @@ public class MD5Utils {
 		String tmpImg = fileName.substring(fileName.lastIndexOf("/")+1);
 		System.out.println("tmpImg========"+tmpImg);
 		
-		System.out.println(MD5Utils.encryption("12345"));
+		System.out.println(MD5Utils.encryption("12345"));*/
+		List<String> list = new ArrayList<String>();
+		 for(char a='G';a<='Z';a++){  
+			 list.add(String.valueOf(a));
+         }  
+		 for(String a :list){
+			 System.out.println(a);
+		 }
 	}
 	
 }
