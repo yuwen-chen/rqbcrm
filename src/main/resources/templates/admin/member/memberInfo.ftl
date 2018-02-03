@@ -36,7 +36,7 @@
 	                                <div class="col-sm-8">
                                 		<#list appPlatformList! as appPlatform> 
 	                        				<#if appPlatform.type == member.appPlatform>
-	                        					<input id="appPlatform name="appPlatform" class="form-control" type="text" value="${appPlatform.desc!}" <#if member?exists> readonly="readonly"</#if> >
+	                        					<input id="appPlatform name="appPlatform" class="form-control" type="text" value="${appPlatform.appName!}" <#if member?exists> readonly="readonly"</#if> >
 	                        					<input id="memberTable" name="memberTable" class="form-control" type="hidden" value="${member.appPlatform}" <#if member?exists> readonly="readonly"</#if> >
 	                        				</#if>
 										</#list>
@@ -140,6 +140,7 @@
 	                        </form>
                     		<#else>
 	                        <form class="form-horizontal m-t" id="addform" method="post" action="${ctx!}/admin/member/add">
+	                        	<input id="appPlatform" name="appPlatform" class="form-control" type="hidden" value="">
 	                        	<div class="form-group">
 		                        	<#if appPlatform ??>
 		                        		<input type="hidden" id="memberTable" name="memberTable"">
@@ -147,8 +148,8 @@
 			   							<label class="col-sm-3 control-label">app平台：</label>
 		                                <div class="col-sm-8">
 		                                	<select id= "memberTable" name="memberTable" class="form-control">
-		                                		<#list appPlatformList! as appPlatform> 
-			                        				<option value="${appPlatform.type!}">${appPlatform.desc!}</option>
+		                                		<#list appPlatformList as appPlatform> 
+			                        				<option value="${appPlatform.type}">${appPlatform.appName}</option>
 												</#list>
 		                                	</select>
 	                                	</div>
@@ -280,7 +281,12 @@
     	var isEdit = $("#isEdit").val();
 	    if(isEdit == ""){
 	    	$("#memberTable").val(parent.$("#appType").val());
+		    $("#appPlatform").val(parent.$("#appType").val());
+		    $("#memberTable").change(function(){
+				$("#appPlatform").val($(this).val());
+			});
 	    }
+	    
 	  	/**
 		 * 调用日期控件
 		 * 

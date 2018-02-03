@@ -22,7 +22,7 @@ public interface IStaffAllotRecordsDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into t_staff_allot_records ( " + 
+    		"insert into ${allotRecordsTable} ( " + 
     		"id, " +
     		"staff_no, " +
     		"member_id, " +
@@ -49,7 +49,7 @@ public interface IStaffAllotRecordsDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into t_staff_allot_records ( " + 
+    		"insert into ${allotRecordsTable} ( " + 
     		"id, " +
     		"staff_no, " +
     		"member_id, " +
@@ -70,19 +70,20 @@ public interface IStaffAllotRecordsDao{
     /**
      * 通过员工ID查询工作人员分配记录
      */
-    @Select(" SELECT * FROM t_staff_allot_records where staff_no= #{staffNo} ")
+    @Select(" SELECT * FROM ${allotRecordsTable} where staff_no= #{staffNo} ")
     @Results({
         @Result(property = "id", column = "id"),
         @Result(property = "staffNo", column = "staff_no"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "memberId", column = "member_id"),
         @Result(property = "allotTime", column = "allot_time")
     })
-    public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(@Param(value = "staffNo") String staffNo);
+    public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(@Param(value = "allotRecordsTable") String allotRecordsTable, @Param(value = "staffNo") String staffNo);
     
     /**
      * 查询会员人数
      */
-    @Select("SELECT count(*) FROM t_staff_allot_records where staff_no= #{staffNo} ")
-    public int queryMemberNum(@Param(value = "staffNo") String staffNo);
+    @Select("SELECT count(*) FROM ${allotRecordsTable} where staff_no= #{staffNo} ")
+    public int queryMemberNum(@Param(value = "allotRecordsTable") String allotRecordsTable, @Param(value = "staffNo") String staffNo);
 
 }

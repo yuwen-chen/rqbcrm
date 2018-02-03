@@ -23,7 +23,7 @@ public interface IMemberDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into ${memberTable} ( " + 
+    		"insert IGNORE into ${memberTable} ( " + 
     		"id, " +
     		"real_name, " +
     		"phone, " +

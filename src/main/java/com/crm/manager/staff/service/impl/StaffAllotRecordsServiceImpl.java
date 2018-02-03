@@ -24,13 +24,13 @@ public class StaffAllotRecordsServiceImpl implements IStaffAllotRecordsService{
 	}
 
 	@Override
-	public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(String staffNo) {
-		return staffAllotRecordsDao.queryStaffAllotRecordsByStaffNo(staffNo);
+	public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(String allotRecordsTable, String staffNo) {
+		return staffAllotRecordsDao.queryStaffAllotRecordsByStaffNo(allotRecordsTable, staffNo);
 	}
 
 	@Override
-	public int queryMemberNum(String staffNo) {
-		return staffAllotRecordsDao.queryMemberNum(staffNo);
+	public int queryMemberNum(String allotRecordsTable, String staffNo) {
+		return staffAllotRecordsDao.queryMemberNum(allotRecordsTable, staffNo);
 	}
 
 

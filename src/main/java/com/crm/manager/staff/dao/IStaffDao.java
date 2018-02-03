@@ -23,7 +23,7 @@ public interface IStaffDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into t_staff ( " + 
+    		"insert IGNORE into ${staffTable} ( " + 
     		"id, " +
     		"staff_no, " +
     		"name, " +
@@ -59,7 +59,7 @@ public interface IStaffDao{
      * @return
      */
     @Update("<script>" +
-    		"update t_staff " + 
+    		"update ${staffTable} " + 
     		"<set> " +
 		    "	<if test='name != null'>" + 
 		    "		name = #{name}, " +
@@ -88,9 +88,10 @@ public interface IStaffDao{
     /**
      * 查询工作人员信息
      */
-    @Select(" SELECT * FROM t_staff ")
+    @Select(" SELECT * FROM ${staffTable} ")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "staffNo", column = "staff_no"),
         @Result(property = "name", column = "name"),
         @Result(property = "phone", column = "phone"),
@@ -99,14 +100,15 @@ public interface IStaffDao{
         @Result(property = "mail", column = "mail"),
         @Result(property = "memberNum", column = "member_num")
     })
-    public List<StaffDTO> queryAllStaff();
+    public List<StaffDTO> queryAllStaff(@Param(value = "staffTable") String staffTable);
     
     /**
      * 查询工作人员会员人数最少的一个
      */
-    @Select(" SELECT * FROM t_staff where status = '00' order by member_num,staff_no asc limit 1 ")
+    @Select(" SELECT * FROM ${staffTable} where status = '00' order by member_num,staff_no asc limit 1 ")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "staffNo", column = "staff_no"),
         @Result(property = "name", column = "name"),
         @Result(property = "phone", column = "phone"),
@@ -115,13 +117,13 @@ public interface IStaffDao{
         @Result(property = "mail", column = "mail"),
         @Result(property = "memberNum", column = "member_num")
     })
-    public StaffDTO queryMinMemberNumStaff();
+    public StaffDTO queryMinMemberNumStaff(@Param(value = "staffTable") String staffTable);
     
     /**
      * 查询工作人员信息
      */
     @Select("<script>" +
-    		"SELECT * FROM t_staff " +
+    		"SELECT * FROM ${staffTable} " +
 		    "<where> " +
 		    "	<if test='id != null'>" + 
 	        "		and id = #{id} "+
@@ -151,6 +153,7 @@ public interface IStaffDao{
 		    "</script>")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "staffNo", column = "staff_no"),
         @Result(property = "name", column = "name"),
         @Result(property = "phone", column = "phone"),
@@ -165,12 +168,13 @@ public interface IStaffDao{
      * 通过员工编号查询工作人员信息
      */
     @Select("<script>" +
-    		"SELECT * FROM t_staff " +
+    		"SELECT * FROM ${staffTable} " +
 		    "where staff_no = #{staffNo} " +
 		    "</script>")
     @Results({
         @Result(property = "id", column = "id"),
         @Result(property = "staffNo", column = "staff_no"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "name", column = "name"),
         @Result(property = "phone", column = "phone"),
         @Result(property = "sex", column = "sex"),
@@ -178,15 +182,15 @@ public interface IStaffDao{
         @Result(property = "mail", column = "mail"),
         @Result(property = "memberNum", column = "member_num")
     })
-    public StaffDTO queryStaffByStaffNo(@Param(value = "staffNo") String staffNo);
+    public StaffDTO queryStaffByStaffNo(@Param(value = "staffTable") String staffTable, @Param(value = "staffNo") String staffNo);
     
     /**
      * 通过员工编号删除工作人员信息
      */
     @Delete("<script>" +
-    		"DELETE FROM t_staff " +
+    		"DELETE FROM ${staffTable} " +
 		    "where staff_no = #{staffNo} " +
 		    "</script>")
-    public int deleteStaffByStaffNo(@Param(value = "staffNo") String staffNo);
+    public int deleteStaffByStaffNo(@Param(value = "staffTable") String staffTable, @Param(value = "staffNo") String staffNo);
 
 }

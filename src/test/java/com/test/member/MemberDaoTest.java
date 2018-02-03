@@ -11,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.crm.manager.Application;
+import com.crm.manager.common.enums.AppTableEnum;
 import com.crm.manager.member.dao.IMemberDao;
 import com.crm.manager.member.dto.MemberDTO;
-import com.crm.manager.member.enums.MemberTableEnum;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -75,7 +75,7 @@ public class MemberDaoTest {
 		//分页插件: 查询第1页，每页10行 
 	    PageHelper.startPage(1, 10);  
 	    MemberDTO member = new MemberDTO();
-	    member.setMemberTable(MemberTableEnum.T_B_MEMBER.getName());
+	    member.setMemberTable(AppTableEnum.getMemberTableByType("A"));
 	    member.setId("UID0001");
 		member.setPhone("13526455623");
 		member.setRealName("张三1");

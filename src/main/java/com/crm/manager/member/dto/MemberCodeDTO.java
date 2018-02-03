@@ -3,7 +3,7 @@ package com.crm.manager.member.dto;
 import javax.persistence.Transient;
 
 import com.crm.manager.common.base.dto.BaseDTO;
-import com.crm.manager.member.enums.MemberCodeTableEnum;
+import com.crm.manager.common.enums.AppTableEnum;
 
 public class MemberCodeDTO   extends BaseDTO {
 
@@ -50,7 +50,7 @@ public class MemberCodeDTO   extends BaseDTO {
 	/**
 	 * 投资金额(1-9999元起算1w=0001,逢1w进1)
 	 */
-	private Integer investmentAmount;
+	private String investmentAmount;
 	
 	/**
 	 * 注册日期(年月:1801)
@@ -139,11 +139,11 @@ public class MemberCodeDTO   extends BaseDTO {
 		this.financialLevel = financialLevel;
 	}
 
-	public Integer getInvestmentAmount() {
+	public String getInvestmentAmount() {
 		return investmentAmount;
 	}
 
-	public void setInvestmentAmount(Integer investmentAmount) {
+	public void setInvestmentAmount(String investmentAmount) {
 		this.investmentAmount = investmentAmount;
 	}
 
@@ -192,7 +192,7 @@ public class MemberCodeDTO   extends BaseDTO {
 	}
 
 	public void setMemberCodeTable(String memberCodeTable) {
-		this.memberCodeTable = MemberCodeTableEnum.getName(memberCodeTable);
+		this.memberCodeTable = AppTableEnum.getMemberCodeTableByType(memberCodeTable);
 	}
 
 	@Override

@@ -38,21 +38,26 @@ public class StaffServiceImpl implements IStaffService{
 	}
 	
 	@Override
-	public StaffDTO queryStaffByStaffNo(String staffNo) {
-		return staffDao.queryStaffByStaffNo(staffNo);
+	public StaffDTO queryStaffByStaffNo(StaffDTO staffDTO) {
+		if(staffDTO == null || StringUtils.isBlank(staffDTO.getStaffTable()) 
+				|| StringUtils.isBlank(staffDTO.getStaffNo())){
+			return null;
+		}
+		return staffDao.queryStaffByStaffNo(staffDTO.getStaffTable(), staffDTO.getStaffNo());
 	}
 
 	@Override
-	public boolean removeStaff(String staffNo) {
-		if(StringUtils.isBlank(staffNo)){
+	public boolean removeStaff(StaffDTO staffDTO) {
+		if(staffDTO == null || StringUtils.isBlank(staffDTO.getStaffTable()) 
+				|| StringUtils.isBlank(staffDTO.getStaffNo())){
 			return false;
 		}
-		return staffDao.deleteStaffByStaffNo(staffNo) > 0;
+		return staffDao.deleteStaffByStaffNo(staffDTO.getStaffTable(), staffDTO.getStaffNo()) > 0;
 	}
 
 	@Override
-	public StaffDTO queryMinMemberNumStaff() {
-		return staffDao.queryMinMemberNumStaff();
+	public StaffDTO queryMinMemberNumStaff(String staffTable) {
+		return staffDao.queryMinMemberNumStaff(staffTable);
 	}
 
 }

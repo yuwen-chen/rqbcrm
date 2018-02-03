@@ -86,7 +86,7 @@
                         <ul class="nav nav-second-level">
                          <@shiro.hasPermission name="crm:member:index">
                             <li>
-                               <a class="J_menuItem" href="${ctx!}/admin/member/index">会员管理</a>
+                               <a class="J_menuItem" href="${ctx!}/admin/member/index">会员信息管理</a>
                             </li>
                          </@shiro.hasPermission>
                          <@shiro.hasPermission name="crm:membercode:index">
@@ -97,6 +97,11 @@
                          <@shiro.hasPermission name="crm:staff:index">
                             <li>
                                <a class="J_menuItem" href="${ctx!}/admin/staff/index">工作人员管理</a>
+                            </li>
+                         </@shiro.hasPermission>
+                         <@shiro.hasPermission name="crm:investment:index">
+                            <li>
+                               <a class="J_menuItem" href="${ctx!}/admin/investment/index">投资记录管理</a>
                             </li>
                          </@shiro.hasPermission>
                         </ul>

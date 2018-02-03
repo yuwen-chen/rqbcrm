@@ -20,6 +20,20 @@ public interface IMemberCodeService {
 	public boolean updateMemberCode(MemberCodeDTO memberCodeDTO);
 	
 	/**
+	 * 通过会员ID查询会员编码信息
+	 * @param memberDTO
+	 * @return
+	 */
+	public MemberCodeDTO queryMemberCodeByMemberId(MemberCodeDTO memberCodeDTO);
+	
+	/**
+	 * 查询最后一个客户编号
+	 * @param memberCodeTable
+	 * @return
+	 */
+	public Integer queryLastCodeNo(String memberCodeTable);
+	
+	/**
 	 * 通过ID删除会员编码
 	 * @param memberDTO
 	 * @return

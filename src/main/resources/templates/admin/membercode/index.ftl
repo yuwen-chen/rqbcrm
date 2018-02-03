@@ -43,8 +43,8 @@
 	                    			<td style="">
 	                    				<div class="" style="width: 105px;">
 		                                	<select id = "appType" name="memberCodeTable" class="form-control">
-		                                		<#list appPlatformList! as appPlatform> 
-		                                			<option value="${appPlatform.type!}">${appPlatform.desc!}</option>
+		                                		<#list appPlatformList as appPlatform> 
+		                                			<option value="${appPlatform.type}">${appPlatform.appName}</option>
 												</#list>
 		                                	</select>
 		                                </div>
@@ -213,7 +213,7 @@
 			        title: "工作人员编号",
 			        field: "staffNo"
 			    },{
-			    	title: "编号",
+			    	title: "客户编号",
 			        field: "codeNo"
 			    }]
 			});

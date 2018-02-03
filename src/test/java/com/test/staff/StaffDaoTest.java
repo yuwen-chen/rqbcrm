@@ -32,7 +32,7 @@ public class StaffDaoTest {
 		staffDTO.setSex(1);
 		staffDTO.setStatus("01");
 		staffDTO.setEmail("1110@qq.com");
-		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("G"));
+		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("t_a_staff", "G"));
 		int result = staffDao.insertStaff(staffDTO );
 		System.out.println(result);
 	}
@@ -46,7 +46,7 @@ public class StaffDaoTest {
 		staffDTO.setSex(2);
 		staffDTO.setStatus("00");
 		staffDTO.setEmail("1110aaaaaaa@qq.com");
-		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("G")+2);
+		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("t_a_staff", "G")+2);
 		int result = staffDao.updateStaff(staffDTO );
 		System.out.println(result);
 	}
@@ -61,8 +61,8 @@ public class StaffDaoTest {
 		staffDTO.setSex(1);
 		staffDTO.setStatus("01");
 		staffDTO.setEmail("1110@qq.com");
-		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("G"));
-		List<StaffDTO> list = staffDao.queryAllStaff();
+		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("t_a_staff", "G"));
+		List<StaffDTO> list = staffDao.queryAllStaff("t_a_staff");
 		for(StaffDTO staff : list){
 			System.out.println(staff);
 		}
@@ -78,7 +78,7 @@ public class StaffDaoTest {
 		staffDTO.setSex(1);
 		staffDTO.setStatus("01");
 		staffDTO.setEmail("1110@qq.com");
-		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("G"));
+		staffDTO.setMemberNum(staffAllotRecordsDao.queryMemberNum("t_a_staff", "G"));
 		List<StaffDTO> list = staffDao.queryStaff(staffDTO);
 		for(StaffDTO staff : list){
 			System.out.println(staff);
@@ -88,19 +88,19 @@ public class StaffDaoTest {
 	
 	@Test 
 	public void queryTestByStaffNo(){
-		StaffDTO staff = staffDao.queryStaffByStaffNo("G");
+		StaffDTO staff = staffDao.queryStaffByStaffNo("t_a_staff", "G");
 		System.out.println(staff);
 	}
 	
 	@Test 
 	public void queryTestOrderBYmemberNum(){
-		StaffDTO staff = staffDao.queryMinMemberNumStaff();
+		StaffDTO staff = staffDao.queryMinMemberNumStaff("t_a_staff");
 		System.out.println(staff.getStaffNo());
 	}
 	
 	@Test 
 	public void deleteTest(){
-		int trsult = staffDao.deleteStaffByStaffNo("G");
+		int trsult = staffDao.deleteStaffByStaffNo("t_a_staff", "G");
 		System.out.println(trsult);
 	}
 

@@ -16,12 +16,12 @@ public interface IStaffAllotRecordsService {
 	 * 通过员工ID查询工作人员分配记录
 	 * @param staffNo
 	 */
-	public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(String staffNo);
+	public List<StaffAllotRecordsDTO> queryStaffAllotRecordsByStaffNo(String allotRecordsTable, String staffNo);
 	
 	/**
 	 * 查询会员人数
 	 * @param staffNo
 	 * @return
 	 */
-	public int queryMemberNum(String staffNo);
+	public int queryMemberNum(String allotRecordsTable, String staffNo);
 }

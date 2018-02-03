@@ -29,11 +29,11 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>会员管理</h5>
+                        <h5>投资记录管理</h5>
                     </div>
                     <div class="ibox-content">
                         <p>
-                        	<@shiro.hasPermission name="crm:member:add">
+                        	<@shiro.hasPermission name="crm:staff:add">
                         		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
                         	</@shiro.hasPermission>
                         </p>
@@ -117,7 +117,7 @@
 			    //必须设置，不然request.getParameter获取不到请求参数
 			    contentType: "application/x-www-form-urlencoded",
 			    //获取数据的Servlet地址  
-			    url: "${ctx!}/admin/member/list",
+			    url: "${ctx!}/admin/investment/list",
 			    //表格显示条纹  
 			    striped: true,
 			    //启动分页  
@@ -145,7 +145,7 @@
 					var param = {    
 						pageNumber:params.pageNumber,  
 						pageSize:params.pageSize,
-						memberTable:$("#appType").val()
+						investmentRecordsTable:$("#appType").val()
   					};    
       				return param;                     
 	            },
@@ -159,45 +159,21 @@
 			    },
 			    //数据列
 			    columns: [{
-			        title: "会员ID",
-			        field: "id",
+			        title: "订单编号",
+			        field: "orderNo",
 			        sortable: true
 			    },{
-			        title: "真实姓名",
-			        field: "realName"
+			        title: "订单标题",
+			        field: "title"
 			    },{
-			        title: "手机号",
-			        field: "phone"
+			        title: "总金额",
+			        field: "totalPrice"
 			    },{
-			        title: "证件类型",
-			        field: "indentityType"
+			        title: "会员ID",
+			        field: "memberId"
 			    },{
-			    	title: "证件号",
-			        field: "indentityNo"
-			    },{
-			        title: "性别",
-			        field: "sex",
-			        formatter: function (value, row, index) {
-                        if (value == 1) {
-                        	return '<span class="label label-info">男</span>';
-                        }
-                    	return '<span class="label label-danger">女</span>';
-                    }
-			    },{
-			        title: "地址",
-			        field: "address"
-			    },{
-			    	title: "用户状态",
-			        field: "userStatus",
-			        formatter: function (value, row, index) {
-                        if (value == '00') {
-                        	return '<span class="label label-info">正常</span>';
-                        }
-                    	return '<span class="label label-danger">冻结</span>';
-                    }
-			    },{
-			        title: "邮箱",
-			        field: "email"
+			        title: "订单状态",
+			        field: "orderStatus"
 			    },{
 			        title: "app平台",
 			        field: "appPlatform",
@@ -213,102 +189,30 @@
                         }
                     }
 			    },{
-			    	title: "理财等级",
-			        field: "financialLevel"
+			        title: "产品ID",
+			        field: "productId"
 			    },{
-			        title: "注册日期",
-			        field: "registerDate"
+			    	title: "订单类型",
+			        field: "orderType"
+			        /*formatter: function (value, row, index) {
+                        if (value == '00') {
+                        	return '<span class="label label-info">正常</span>';
+                        }
+                    	return '<span class="label label-danger">失效</span>';
+                    }*/
 			    },{
-			        title: "人员编号",
-			        field: "staffNo"
-			    
+			        title: "订单唯一标示token",
+			        field: "orderToken"
 			    },{
-			        title: "操作",
-			        field: "empty",
-                    formatter: function (value, row, index) {
-                    	var operateHtml = '<@shiro.hasPermission name="crm:member:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:member:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
-                        return operateHtml;
-                    }
+			        title: "第三方唯一交易流水号",
+			        field: "channelTradeId"
+			    },{
+			        title: "投资时间",
+			        field: "investmentTime"
 			    }]
 			});
 		}
 		
-		
-		
-        function add(){
-        	layer.open({
-        	      type: 2,
-        	      title: '会员添加',
-        	      shadeClose: true,
-        	      shade: false,
-        	      area: ['893px', '600px'],
-        	      content: '${ctx!}/admin/member/addview',
-        	      end: function(index){
-        	      		initTable(); 
-        	    	  //$('#table_list').bootstrapTable("refresh");
-       	    	  }
-        	    });
-        }
-        
-        /*function edit(id,appPlatform){
-	        $.ajax({  
-			      type: 'POST',  
-			      url: '${ctx!}/admin/member/editview',//发送请求  
-			      data: {id:id,memberTable:appPlatform},  
-			      dataType : "html",  
-			      success: function(result) {  
-			          var htmlCont = result;//返回的结果页面  
-			          layer.open({
-		        	      type: 1,
-		        	      title: '会员修改',
-		        	      shadeClose: true,
-		        	      shade: false,
-		        	      area: ['893px', '600px'],
-		        	      content: htmlCont,
-		        	      end: function(index){
-		        	    	  initTable(); 
-		        	    	  //$('#table_list').bootstrapTable("refresh");
-		       	    	  }
-					});
-				}  
-			}); 
-        }*/
-        
-        function edit(id,appPlatform){
-			layer.open({
-				type: 2,
-				title: '会员修改',
-				shadeClose: true,
-				shade: false,
-				area: ['893px', '600px'],
-				content: '${ctx!}/admin/member/editview/'+appPlatform+'/'+id,//发送请求  
-				end: function(index){
-					initTable(); 
-					//$('#table_list').bootstrapTable("refresh");
-				}
-			});
-        }
-        
-        function del(id,appPlatform){
-        	layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
-        		$.ajax({
-    	    		   type: "POST",
-    	    		   dataType: "json",
-    	    		   url: "${ctx!}/admin/member/delete/" + id,
-    	    		   data: {id:id,memberTable:appPlatform},  
-    	    		   success: function(msg){
-	 	   	    			layer.msg(msg.message, {time: 2000},function(){
-	 	   	    				initTable(); 
-	 	   	    				//$('#table_list').bootstrapTable("refresh");
-	 	   	    				layer.close(index);
-	 	   					});
-    	    		   }
-    	    	});
-       		});
-        }
-		
-	  
     </script>
 	<style>
 	

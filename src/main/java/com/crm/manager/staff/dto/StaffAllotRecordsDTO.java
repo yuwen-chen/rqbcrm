@@ -2,8 +2,11 @@ package com.crm.manager.staff.dto;
 
 import java.util.Date;
 
+import javax.persistence.Transient;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.crm.manager.common.base.dto.BaseDTO;
+import com.crm.manager.common.enums.AppTableEnum;
 
 public class StaffAllotRecordsDTO extends BaseDTO {
 
@@ -23,6 +26,11 @@ public class StaffAllotRecordsDTO extends BaseDTO {
 	private String staffNo;
 	
 	/**
+	 * app平台(A:融侨宝, B:金管家, C:融侨普惠)
+	 */
+	private String appPlatform;
+	
+	/**
 	 * 会员ID
 	 */
 	private String memberId;
@@ -32,6 +40,12 @@ public class StaffAllotRecordsDTO extends BaseDTO {
 	 */
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date allotTime;
+	
+	/**
+     * 分配记录对应表
+     */
+    @Transient 
+    private String allotRecordsTable;
 
 	public Long getId() {
 		return id;
@@ -47,6 +61,14 @@ public class StaffAllotRecordsDTO extends BaseDTO {
 
 	public void setStaffNo(String staffNo) {
 		this.staffNo = staffNo;
+	}
+	
+	public String getAppPlatform() {
+		return appPlatform;
+	}
+
+	public void setAppPlatform(String appPlatform) {
+		this.appPlatform = appPlatform;
 	}
 
 	public String getMemberId() {
@@ -64,11 +86,13 @@ public class StaffAllotRecordsDTO extends BaseDTO {
 	public void setAllotTime(Date allotTime) {
 		this.allotTime = allotTime;
 	}
-
-	@Override
-	public String toString() {
-		return "StaffAllotRecordsDTO [id=" + id + ", staffNo=" + staffNo + ", memberId=" + memberId + ", allotTime="
-				+ allotTime + "]";
-	}
 	
+	public String getAllotRecordsTable() {
+		return allotRecordsTable;
+	}
+
+	public void setAllotRecordsTable(String allotRecordsTable) {
+		this.allotRecordsTable = AppTableEnum.getAllotRecordsTableByType(allotRecordsTable);
+	}
+
 }

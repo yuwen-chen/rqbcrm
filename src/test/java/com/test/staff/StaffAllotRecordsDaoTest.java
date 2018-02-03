@@ -47,14 +47,14 @@ public class StaffAllotRecordsDaoTest {
 	
 	@Test 
 	public void queryMemberNumTest(){
-		int result = staffAllotRecordsDao.queryMemberNum("H");
+		int result = staffAllotRecordsDao.queryMemberNum("t_a_staff","H");
 			System.out.println(result);
 		
 	}
 	
 	@Test 
 	public void queryTest(){
-		List<StaffAllotRecordsDTO> list = staffAllotRecordsDao.queryStaffAllotRecordsByStaffNo("H");
+		List<StaffAllotRecordsDTO> list = staffAllotRecordsDao.queryStaffAllotRecordsByStaffNo("t_a_staff", "H");
 		for(StaffAllotRecordsDTO staffAllotRecords : list){
 			System.out.println(staffAllotRecords);
 		}

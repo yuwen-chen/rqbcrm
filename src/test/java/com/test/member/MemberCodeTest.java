@@ -24,13 +24,13 @@ public class MemberCodeTest {
 	
 	@Test
 	public void TestAdd(){
-		for(int i=0;i<7;i++){
+		for(int i=7;i<9;i++){
 			MemberCodeDTO memberCode = new MemberCodeDTO();
 			memberCode.setMemberCode("");
 			memberCode.setMemberId("1000"+i);
 			memberCode.setProvince("31");
 			memberCode.setFinancialLevel(0);
-			memberCode.setInvestmentAmount(0002);
+			//memberCode.setInvestmentAmount("0002");
 			memberCode.setIsInvestment(1);
 			memberCode.setRegisterDate("1801");
 			memberCode.setBirthdate("900303");
@@ -46,10 +46,10 @@ public class MemberCodeTest {
 	public void TestUpdate(){
 		MemberCodeDTO memberCode = new MemberCodeDTO();
 		memberCode.setMemberCode("");
-		memberCode.setMemberId("100010");
+		memberCode.setMemberId("10001");
 		memberCode.setProvince("31");
 		memberCode.setFinancialLevel(0);
-		memberCode.setInvestmentAmount(0002);
+		memberCode.setInvestmentAmount("0001");
 		memberCode.setIsInvestment(1);
 		memberCode.setRegisterDate("1801");
 		memberCode.setBirthdate("900303");
@@ -70,7 +70,7 @@ public class MemberCodeTest {
 		//memberCode.setMemberId("10001");
 		memberCode.setProvince("31");
 		memberCode.setFinancialLevel(0);
-		memberCode.setInvestmentAmount(0002);
+		memberCode.setInvestmentAmount("0002");
 		memberCode.setIsInvestment(1);
 		memberCode.setRegisterDate("1801");
 		memberCode.setBirthdate("900303");
@@ -103,6 +103,14 @@ public class MemberCodeTest {
 		MemberCodeDTO memberCode = new MemberCodeDTO();
 		memberCode.setMemberCodeTable("A");
 	    int a = memberCodeMapper.deleteMemberCodeByMemberId(memberCode.getMemberCodeTable(), "UID0000");
+		System.out.println(a);
+	}
+	
+	@Test
+	public void TestLstCodeNo(){
+		MemberCodeDTO memberCode = new MemberCodeDTO();
+		memberCode.setMemberCodeTable("B");
+	    Integer a = memberCodeMapper.queryLastCodeNo(memberCode.getMemberCodeTable());
 		System.out.println(a);
 	}
 

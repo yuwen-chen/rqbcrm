@@ -24,7 +24,7 @@ public interface IMemberCodeDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into ${memberCodeTable} ( " + 
+    		"insert IGNORE into ${memberCodeTable} ( " + 
     		"id, " +
     		"member_code, " +
     		"member_id, " +
@@ -121,7 +121,7 @@ public interface IMemberCodeDao{
     public int updateMemberCodeByMemberId(MemberCodeDTO memberCodeDto);
     
     /**
-     * 查询会员信息
+     * 查询会员编码信息
      */
     @Select(" SELECT * FROM ${memberCodeTable}")
     @Results({
@@ -228,6 +228,14 @@ public interface IMemberCodeDao{
         @Result(property = "codeNo", column = "code_no")
     })
     public MemberCodeDTO queryMemberCodeByMemberId(@Param(value = "memberCodeTable") String memberCodeTable, @Param(value = "memberId") String memberId);
+    
+    /**
+     * 查询最后一个客户编号
+     */
+    @Select("<script>" +
+    		"SELECT code_no FROM ${memberCodeTable} order by code_no desc limit 1" +
+		    "</script>")
+    public Integer queryLastCodeNo(@Param(value = "memberCodeTable") String memberCodeTable);
     
     /**
      * 通过会员ID删除会员编码信息

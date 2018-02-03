@@ -31,6 +31,25 @@
                 		<form class="form-horizontal m-t" id="editform" method="post" action="${ctx!}/admin/member/edit">
                 			<input id="id" name="id" class="form-control" type="hidden" value="${staff.id}" <#if staff?exists> readonly="readonly"</#if> >
                         	<div class="form-group">
+	   							<label class="col-sm-3 control-label">app平台：</label>
+                                <div class="col-sm-8">
+	                                <#if staff?exists>
+	                                	<#list appPlatformList! as appPlatform> 
+	                        				<#if appPlatform.type == staff.appPlatform>
+	                        					<input id="appPlatform name="appPlatform" class="form-control" type="text" value="${appPlatform.appName!}" <#if staff?exists> readonly="readonly"</#if> >
+	                        					<input id="staffTable" name="staffTable" class="form-control" type="hidden" value="${staff.appPlatform}" <#if staff?exists> readonly="readonly"</#if> >
+	                        				</#if>
+										</#list>
+	                                	<#else>
+	                                	<select id= "staffTable" name="staffTable" class="form-control">
+	                                		<#list appPlatformList as appPlatform> 
+		                        				<option value="${appPlatform.type}">${appPlatform.appName}</option>
+											</#list>
+	                                	</select>
+	                                </#if>
+                            	</div>
+                            </div>
+                        	<div class="form-group">
 	   							<label class="col-sm-3 control-label">工作人员编号：</label>
                                 <div class="col-sm-8">
                                 	<#if staff?exists>
@@ -109,6 +128,15 @@
     <script src="${ctx!}/assets/js/plugins/layer/laydate/laydate.js"></script>
     <script type="text/javascript">
     $(document).ready(function () {
+    	var isAdd = $("#id").val();
+    	if(isAdd == ""){
+			$("#staffTable").val(parent.$("#appType").val());
+			//$("#appPlatform").val(parent.$("#appType").val());
+			//$("#staffTable").change(function(){
+				//$("#appPlatform").val($(this).val());
+			//});
+    	}
+    	
     	
     	/**
 		 * 修改会员
@@ -126,6 +154,7 @@
    	    		   success: function(msg){
 	   	    			layer.msg(msg.message, {time: 2000},function(){
 	   						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	   						parent.$("#appType").val($("#staffTable").val());
 	   						parent.layer.close(index); 
 	   					});
    	    		   }

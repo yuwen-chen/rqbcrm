@@ -2,7 +2,10 @@ package com.crm.manager.investment.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Transient;
+
 import com.crm.manager.common.base.dto.BaseDTO;
+import com.crm.manager.common.enums.AppTableEnum;
 
 public class InvestmentRecordsDTO  extends BaseDTO{
 
@@ -15,6 +18,12 @@ public class InvestmentRecordsDTO  extends BaseDTO{
 	 * ID
 	 */
     private Long id;	
+    
+    
+    /**
+	 * app平台(A:融侨宝, B:金管家, C:融侨普惠)
+	 */
+	private String appPlatform;
     
     /**
      * 会员ID
@@ -65,6 +74,12 @@ public class InvestmentRecordsDTO  extends BaseDTO{
      * 投资时间
      */
     private String investmentTime;
+    
+    /**
+     * 投资记录对应表
+     */
+    @Transient 
+    private String investmentRecordsTable;
 
 	public Long getId() {
 		return id;
@@ -72,6 +87,14 @@ public class InvestmentRecordsDTO  extends BaseDTO{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getAppPlatform() {
+		return appPlatform;
+	}
+
+	public void setAppPlatform(String appPlatform) {
+		this.appPlatform = appPlatform;
 	}
 
 	public String getMemberId() {
@@ -154,4 +177,12 @@ public class InvestmentRecordsDTO  extends BaseDTO{
 		this.investmentTime = investmentTime;
 	}
 
+	public String getInvestmentRecordsTable() {
+		return investmentRecordsTable;
+	}
+
+	public void setInvestmentRecordsTable(String investmentRecordsTable) {
+		this.investmentRecordsTable = AppTableEnum.getInvestmentRecordsTableByType(investmentRecordsTable);
+	}
+	
 }

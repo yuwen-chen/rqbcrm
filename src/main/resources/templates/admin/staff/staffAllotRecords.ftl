@@ -38,7 +38,7 @@
             </div>
         </div>
 		<input id="staffAllptRecordsfNo" name="staffNo" class="form-control" type="hidden" value="${staffNo}">
-        
+        <input id="allotRecordsTable" name="allotRecordsTable" class="form-control" type="hidden" value="${appPlatform}">
     </div>
 
     <!-- 全局js -->
@@ -92,7 +92,8 @@
 					var param = {    
 						pageNumber:params.pageNumber,  
 						pageSize:params.pageSize,
-						staffNo:$("#staffAllptRecordsfNo").val()
+						staffNo:$("#staffAllptRecordsfNo").val(),
+						allotRecordsTable:$("#allotRecordsTable").val()
   					};    
       				return param;                     
 	            },
@@ -109,9 +110,23 @@
 			        field: "id",
 			        sortable: true
 			    },{
-			      title: "工作人员编号",
+			      	title: "工作人员编号",
 			        field: "staffNo",
 			        sortable: true
+			    },{
+			        title: "app平台",
+			        field: "appPlatform",
+			        formatter: function (value, row, index) {
+                        if (value == 'A') {
+                        	return '<span class="label label-info">融侨宝</span>';
+                        }
+                        if (value == 'B') {
+                        	return '<span class="label label-info">金管家</span>';
+                        }
+                        if (value == 'C') {
+                        	return '<span class="label label-info">融侨普惠</span>';
+                        }
+                    }
 			    },{
 			        title: "会员ID",
 			        field: "memberId"

@@ -3,7 +3,7 @@ package com.crm.manager.member.dto;
 import javax.persistence.Transient;
 
 import com.crm.manager.common.base.dto.BaseDTO;
-import com.crm.manager.member.enums.MemberTableEnum;
+import com.crm.manager.common.enums.AppTableEnum;
 
 public class MemberDTO  extends BaseDTO{
 
@@ -194,7 +194,7 @@ public class MemberDTO  extends BaseDTO{
 	}
 
 	public void setMemberTable(String memberTable) {
-		this.memberTable = MemberTableEnum.getName(memberTable);
+		this.memberTable = AppTableEnum.getMemberTableByType(memberTable);
 		//this.memberTable = memberTable;
 	}
 

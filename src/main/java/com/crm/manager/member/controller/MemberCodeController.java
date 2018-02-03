@@ -6,8 +6,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crm.manager.common.enums.AppTableEnum;
 import com.crm.manager.member.dto.MemberCodeDTO;
-import com.crm.manager.member.enums.MemberCodeTableEnum;
 import com.crm.manager.member.service.IMemberCodeService;
 import com.github.pagehelper.PageInfo;
 
@@ -20,7 +20,7 @@ public class MemberCodeController {
 	
 	@RequestMapping(value = { "/", "/index" })
 	public String index(ModelMap map) {
-		map.put("appPlatformList", MemberCodeTableEnum.values());
+		map.put("appPlatformList", AppTableEnum.values());
 		return "admin/membercode/index";
 	}
 	

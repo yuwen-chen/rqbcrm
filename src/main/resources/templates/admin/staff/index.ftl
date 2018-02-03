@@ -38,6 +38,30 @@
                         	</@shiro.hasPermission>
                         </p>
                         <hr>
+                        <!--查询窗体-->
+                        <div>
+	                    	<table style="width:100%">
+	                    		<tr class="" style=""> 
+	                    			<td style="padding: 8px;">
+	                    				<label class="pull-right" >app平台：</label>
+	                    			</td>
+	                    			<td style="">
+	                    				<div class="" style="width: 105px;">
+		                                	<select id = "appType" name="memberTable" class="form-control">
+		                                		<#list appPlatformList as appPlatform> 
+		                                			<option value="${appPlatform.type}">${appPlatform.appName}</option>
+												</#list>
+		                                	</select>
+		                                </div>
+	                    			</td>
+	                    			
+	                    			<td  style="">
+	                    				<div class="pull-right" style=""><button class="btn btn-primary" id="querybtn">查询</button></div>
+	                    			</td>
+	                    		</tr>
+	                    	<table>
+	                    </div>
+	                    <hr>
                         <div class="row row-lg">
 		                    <div class="col-sm-12">
 		                        <!-- Example Card View -->
@@ -117,14 +141,14 @@
 				// showRefresh : true, // 显示刷新按钮
 				silent: true, // 必须设置刷新事件
 				//queryParams: queryParams, // 请求参数，这个关系到后续用到的异步刷新
-				/*queryParams: function queryParams(params) {   //设置查询参数
+				queryParams: function queryParams(params) {   //设置查询参数
 					var param = {    
 						pageNumber:params.pageNumber,  
 						pageSize:params.pageSize,
-						memberTable:$("#appType").val()
+						staffTable:$("#appType").val()
   					};    
       				return param;                     
-	            },*/
+	            },
 			    queryParamsType: "undefined",
 			    //json数据解析
 			    responseHandler: function(res) {
@@ -172,9 +196,9 @@
 			        title: "操作",
 			        field: "empty",
                     formatter: function (value, row, index) {
-                    	var operateHtml = '<@shiro.hasPermission name="crm:staff:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.staffNo+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.staffNo+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:allotrecords"><button class="btn btn-info btn-xs" type="button" onclick="allotRecords(\''+row.staffNo+'\')"><i class="fa fa-arrows"></i>&nbsp;分配记录</button></@shiro.hasPermission>';
+                    	var operateHtml = '<@shiro.hasPermission name="crm:staff:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
+                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
+                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:allotrecords"><button class="btn btn-info btn-xs" type="button" onclick="allotRecords(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-bars"></i>&nbsp;分配记录</button></@shiro.hasPermission>';
                         return operateHtml;
                     }
 			    }]
@@ -198,41 +222,41 @@
         	    });
         }
         
-        function edit(staffNo){
+        function edit(staffNo,appPlatform){
 			layer.open({
 				type: 2,
 				title: '工作人员修改',
 				shadeClose: true,
 				shade: false,
 				area: ['893px', '600px'],
-				content: '${ctx!}/admin/staff/editview/'+staffNo,//发送请求  
+				content: '${ctx!}/admin/staff/editview/'+appPlatform+'/'+staffNo,//发送请求  
 				end: function(index){
 					initTable(); 
 				}
 			});
         }
         
-        function allotRecords(staffNo){
+        function allotRecords(staffNo, appPlatform){
 			layer.open({
 				type: 2,
 				title: '分配记录',
 				shadeClose: true,
 				shade: false,
 				area: ['893px', '600px'],
-				content: '${ctx!}/admin/staff/allotrecords/'+staffNo,//发送请求  
+				content: '${ctx!}/admin/staff/allotrecords/'+appPlatform+'/'+staffNo,//发送请求  
 				end: function(index){
 					//initTable(); 
 				}
 			});
         }
         
-        function del(staffNo){
+        function del(staffNo, appPlatform){
         	layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
         		$.ajax({
     	    		   type: "POST",
     	    		   dataType: "json",
     	    		   url: "${ctx!}/admin/staff/delete/" + staffNo,
-    	    		   data: {staffNo:staffNo},  
+    	    		   data: {staffNo:staffNo,staffTable:appPlatform},  
     	    		   success: function(msg){
 	 	   	    			layer.msg(msg.message, {time: 2000},function(){
 	 	   	    				initTable(); 

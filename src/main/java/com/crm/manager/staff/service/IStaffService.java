@@ -23,18 +23,18 @@ public interface IStaffService {
 	 * @param staffNo
 	 * @return
 	 */
-	public StaffDTO queryStaffByStaffNo(String staffNo);
+	public StaffDTO queryStaffByStaffNo(StaffDTO staffDTO);
 	
 	
 	/**
 	 * 删除工作人员信息
 	 * @param staffNo
 	 */
-	public boolean removeStaff(String staffNo);
+	public boolean removeStaff(StaffDTO staffDTO);
 	
 	/**
 	 * 查询工作人员会员人数最少的一个
 	 * @param staffNo
 	 */
-	public StaffDTO queryMinMemberNumStaff();
+	public StaffDTO queryMinMemberNumStaff(String staffTable);
 }

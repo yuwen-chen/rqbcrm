@@ -1,6 +1,9 @@
 package com.crm.manager.staff.dto;
 
+import javax.persistence.Transient;
+
 import com.crm.manager.common.base.dto.BaseDTO;
+import com.crm.manager.common.enums.AppTableEnum;
 
 public class StaffDTO  extends BaseDTO{
 
@@ -13,6 +16,11 @@ public class StaffDTO  extends BaseDTO{
 	 * ID
 	 */
     private Long id;	
+    
+    /**
+	 * app平台(A:融侨宝, B:金管家, C:融侨普惠)
+	 */
+	private String appPlatform;
     
     /**
      * 工作人员编号
@@ -48,6 +56,12 @@ public class StaffDTO  extends BaseDTO{
      * 会员人数
      */
     private Integer memberNum;
+    
+    /**
+     * 工作人员对应表
+     */
+    @Transient 
+    private String staffTable;
 
 	public Long getId() {
 		return id;
@@ -55,6 +69,14 @@ public class StaffDTO  extends BaseDTO{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getAppPlatform() {
+		return appPlatform;
+	}
+
+	public void setAppPlatform(String appPlatform) {
+		this.appPlatform = appPlatform;
 	}
 
 	public String getStaffNo() {
@@ -113,4 +135,12 @@ public class StaffDTO  extends BaseDTO{
 		this.memberNum = memberNum;
 	}
 
+	public String getStaffTable() {
+		return staffTable;
+	}
+
+	public void setStaffTable(String staffTable) {
+		this.staffTable = AppTableEnum.getStaffTableByType(staffTable);
+	}
+	
 }

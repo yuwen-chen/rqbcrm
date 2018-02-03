@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.crm.manager.investment.dto.InvestmentRecordsDTO;
-import com.crm.manager.staff.dto.StaffDTO;
 
 @Mapper
 public interface IInvestmentRecordsDao{
@@ -25,7 +24,7 @@ public interface IInvestmentRecordsDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert into t_investment_records ( " + 
+    		"insert IGNORE into ${investmentRecordsTable} ( " + 
     		"id, " +
     		"member_id, " +
     		"order_no, " +
@@ -68,7 +67,7 @@ public interface IInvestmentRecordsDao{
      * @return
      */
     @Update("<script>" +
-    		"update t_investment_records " + 
+    		"update ${investmentRecordsTable} " + 
     		"<set> " +
 		    "	<if test='memberId != null'>" + 
 		    "		member_id = #{memberId}, " +
@@ -96,16 +95,17 @@ public interface IInvestmentRecordsDao{
 	        "	</if>" +
     		"	update_time = now() "+
 	        "</set>" +
-    		"where order_no = #{orderNo} " +
+    		"where order_no = #{orderNo} and app_platform = #{appPlatform} " +
 			"</script>")
     public int updateInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO);
     
     /**
      * 查询所有投资记录
      */
-    @Select(" SELECT * FROM t_investment_records ")
+    @Select(" SELECT * FROM ${investmentRecordsTable} ")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "memberId", column = "member_id"),
         @Result(property = "orderNo", column = "order_no"),
         @Result(property = "title", column = "title"),
@@ -117,23 +117,26 @@ public interface IInvestmentRecordsDao{
         @Result(property = "channelTradeId", column = "channel_trade_id"),
         @Result(property = "investmentTime", column = "investment_time")
     })
-    public List<InvestmentRecordsDTO> queryAllInvestmentRecords();
+    public List<InvestmentRecordsDTO> queryAllInvestmentRecords(@Param(value = "investmentRecordsTable") String investmentRecordsTable);
     
     /**
      * 通过会员ID查询总投资金额
      */
-    @Select(" SELECT Sum(totalPrice) as totalPrice FROM t_investment_records WHERE member_id = #{memberId} ")
-    public BigDecimal queryTotalInvestmentAmountByMemberId(@Param(value = "memberId") String memberId);
+    @Select(" SELECT Sum(totalPrice) as totalPrice FROM ${investmentRecordsTable} WHERE member_id = #{memberId} ")
+    public BigDecimal queryTotalInvestmentAmountByMemberId(@Param(value = "investmentRecordsTable") String investmentRecordsTable, @Param(value = "memberId") String memberId);
     
     /**
-     * 查询工作人员信息
+     * 查询投资记录
      */
     @Select("<script>" +
-    		"SELECT * FROM t_investment_records " +
+    		"SELECT * FROM ${investmentRecordsTable} " +
 		    "<where> " +
 		    "	<if test='id != null'>" + 
 	        "		and id = #{id} "+
 	        "	</if>" +
+			"	<if test='appPlatform != null'>" + 
+			"		app_platform = #{appPlatform}, " +
+			"	</if>" +
 	        "	<if test='memberId != null'>" + 
 	        "		and member_id = #{memberId} "+
 	        "	</if>" +
@@ -165,6 +168,7 @@ public interface IInvestmentRecordsDao{
 		    "</script>")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "memberId", column = "member_id"),
         @Result(property = "orderNo", column = "order_no"),
         @Result(property = "title", column = "title"),
@@ -176,17 +180,18 @@ public interface IInvestmentRecordsDao{
         @Result(property = "channelTradeId", column = "channel_trade_id"),
         @Result(property = "investmentTime", column = "investment_time")
     })
-    public List<StaffDTO> queryStaff(StaffDTO staffDTO);
+    public List<InvestmentRecordsDTO> queryInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO);
     
     /**
      * 通过订单号查询投资记录
      */
     @Select("<script>" +
-    		"SELECT * FROM t_investment_records " +
-		    "where order_no = #{orderNo} " +
+    		"SELECT * FROM ${investmentRecordsTable} " +
+		    "where order_no = #{orderNo}" +
 		    "</script>")
     @Results({
         @Result(property = "id", column = "id"),
+        @Result(property = "appPlatform", column = "app_platform"),
         @Result(property = "memberId", column = "member_id"),
         @Result(property = "orderNo", column = "order_no"),
         @Result(property = "title", column = "title"),
@@ -198,15 +203,15 @@ public interface IInvestmentRecordsDao{
         @Result(property = "channelTradeId", column = "channel_trade_id"),
         @Result(property = "investmentTime", column = "investment_time")
     })
-    public InvestmentRecordsDTO queryInvestmentRecordsByOrderNo(@Param(value = "orderNo") String orderNo);
+    public InvestmentRecordsDTO queryInvestmentRecordsByOrderNo(@Param(value = "investmentRecordsTable") String investmentRecordsTable, @Param(value = "orderNo") String orderNo);
     
     /**
      * 通过订单号删除投资记录
      */
     @Delete("<script>" +
-    		"DELETE FROM t_investment_records " +
+    		"DELETE FROM ${investmentRecordsTable} " +
 		    "where order_no = #{orderNo} " +
 		    "</script>")
-    public int InvestmentRecordsByOrderNo(@Param(value = "orderNo") String orderNo);
+    public int InvestmentRecordsByOrderNo(@Param(value = "investmentRecordsTable") String investmentRecordsTable, @Param(value = "orderNo") String orderNo);
 
 }

@@ -1,5 +1,6 @@
 package com.crm.manager.common.utils;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -73,6 +74,28 @@ public class MD5Utils {
 		return re_md5;
 
 	}
+	
+	
+	public static int getInvestmentAmount(BigDecimal totalAmount){
+		BigDecimal minAmount = BigDecimal.valueOf(1); 
+		BigDecimal maxAmount = BigDecimal.valueOf(9999); 
+		BigDecimal multipleNum = BigDecimal.valueOf(10000); 
+		if(totalAmount.compareTo(minAmount) >= 0 && totalAmount.compareTo(maxAmount) <= 0){
+			return 1;
+		} else if(totalAmount.compareTo(maxAmount) >0 ){
+			int multiple =totalAmount.divide(multipleNum).intValue();
+			BigDecimal remainder =totalAmount.subtract(multipleNum.multiply(new BigDecimal(multiple)));
+			if (multiple == 0){
+				return 1;
+			}
+			if((remainder.compareTo(minAmount) >= 0 && remainder.compareTo(maxAmount) <= 0)){
+				return multiple + 1;
+			} else {
+				return multiple;
+			}
+		}
+		return 0;
+	}
 
 	
 	public static void main(String[] args) {
@@ -85,13 +108,18 @@ public class MD5Utils {
 		System.out.println("tmpImg========"+tmpImg);
 		
 		System.out.println(MD5Utils.encryption("12345"));*/
-		List<String> list = new ArrayList<String>();
+		/*List<String> list = new ArrayList<String>();
 		 for(char a='G';a<='Z';a++){  
 			 list.add(String.valueOf(a));
          }  
 		 for(String a :list){
 			 System.out.println(a);
-		 }
+		 }*/
+		BigDecimal totalAmount = BigDecimal.valueOf(100001.999); 
+		System.out.println(getInvestmentAmount(totalAmount));
+		
+		String str = String.format("%04d", 5);
+		System.out.println(str);
 	}
 	
 }

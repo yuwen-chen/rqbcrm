@@ -6,12 +6,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crm.manager.common.JsonResult;
+import com.crm.manager.common.enums.AppTableEnum;
 import com.crm.manager.member.dto.MemberDTO;
-import com.crm.manager.member.enums.MemberTableEnum;
 import com.crm.manager.member.service.IMemberService;
 import com.github.pagehelper.PageInfo;
 
@@ -24,7 +23,7 @@ public class MemberController {
 	
 	@RequestMapping(value = { "/", "/index" })
 	public String index(ModelMap map) {
-		map.put("appPlatformList", MemberTableEnum.values());
+		map.put("appPlatformList", AppTableEnum.values());
 		return "admin/member/index";
 	}
 	
@@ -38,7 +37,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/addview", method = RequestMethod.GET)
 	public String addView(ModelMap map) {
-		map.put("appPlatformList", MemberTableEnum.values());
+		map.put("appPlatformList", AppTableEnum.values());
 		return "admin/member/memberInfo";
 	}
 	
@@ -67,7 +66,7 @@ public class MemberController {
 	@RequestMapping(value = "/editview/{appPlatform}/{id}", method = RequestMethod.GET)
 	public String editView(@PathVariable String appPlatform, @PathVariable String id, ModelMap map) {
 		MemberDTO member = memberService.queryMemberById(appPlatform, id);
-		map.put("appPlatformList", MemberTableEnum.values());
+		map.put("appPlatformList", AppTableEnum.values());
 		map.put("member", member);
 		map.put("isEdit", true);
 		return "admin/member/memberInfo";
