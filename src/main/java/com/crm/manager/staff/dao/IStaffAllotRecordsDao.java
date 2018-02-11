@@ -2,6 +2,7 @@ package com.crm.manager.staff.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -85,5 +86,15 @@ public interface IStaffAllotRecordsDao{
      */
     @Select("SELECT count(*) FROM ${allotRecordsTable} where staff_no= #{staffNo} ")
     public int queryMemberNum(@Param(value = "allotRecordsTable") String allotRecordsTable, @Param(value = "staffNo") String staffNo);
+    
+    /**
+     * 删除分配记录
+     */
+    @Delete("<script>" +
+    		"DELETE FROM ${allotRecordsTable} " +
+		    "where member_id = #{memberId} " +
+		    "and staff_no = #{staffNo} " +
+		    "</script>")
+    public int deleteStaffAllotRecords(StaffAllotRecordsDTO staffAllotRecords);
 
 }

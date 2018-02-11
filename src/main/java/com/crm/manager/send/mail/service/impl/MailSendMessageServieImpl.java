@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,33 @@ public class MailSendMessageServieImpl implements ISendMessageService{
 		email.setSubject(mailTemplate.getTemplateSubject());
 		email.setMessage(mailTemplate.getTemplateContent());
 		service.execute(new SendMailThread(mailSender, email, sender, parameterMap));
+	}
+	
+	private void validationParam(String templateId, EmailBean email,Map<String, Object> parameterMap) throws MessagingException{
+		if(StringUtils.isBlank(templateId)){
+			throw new MessagingException("模板ID不能为空");
+		}
+		if(StringUtils.isBlank(templateId)){
+			throw new MessagingException("模板ID不能为空");
+		}
+		if(StringUtils.isBlank(templateId)){
+			throw new MessagingException("模板ID不能为空");
+		}
+		if(StringUtils.isBlank(templateId)){
+			throw new MessagingException("模板ID不能为空");
+		}
+		if (email==null) {
+			logger.error("邮件发送缺少必须条件: \r[EmailEntity="+email+"]");
+			return;
+		}
+		if(StringUtils.isBlank(sender)){
+			logger.error("发件人为空");
+			return;
+		}
+		if(StringUtils.isBlank(email.getEmail())){
+			logger.error("收件人为空");
+			return;
+		}
+		
 	}
 }  

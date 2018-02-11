@@ -36,11 +36,11 @@
 	                                <div class="col-sm-8">
                                 		<#list appPlatformList! as appPlatform> 
 	                        				<#if appPlatform.type == member.appPlatform>
-	                        					<input id="appPlatform name="appPlatform" class="form-control" type="text" value="${appPlatform.appName!}" <#if member?exists> readonly="readonly"</#if> >
+	                        					<input id="appPlatformDesc" name="appPlatformDesc" class="form-control" type="text" value="${appPlatform.appName!}" <#if member?exists> readonly="readonly"</#if> >
+	                        					<input id="appPlatform" name="appPlatform" class="form-control" type="hidden" value="${member.appPlatform!}" <#if member?exists> readonly="readonly"</#if> >
 	                        					<input id="memberTable" name="memberTable" class="form-control" type="hidden" value="${member.appPlatform}" <#if member?exists> readonly="readonly"</#if> >
 	                        				</#if>
 										</#list>
-	                                	</select>
                                 	</div>
 	                            </div>
 	                            <div class="form-group">
@@ -52,84 +52,89 @@
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">手机号：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="phone" name="phone" class="form-control" type="text" value="${member.phone}">
+	                                    <input id="phone" name="phone" class="form-control" type="text" value="${member.phone}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">真实姓名：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="realName" name="realName" class="form-control" type="text" value="${member.realName}">
+	                                    <input id="realName" name="realName" class="form-control" type="text" value="${member.realName}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">证件类型：</label>
 	                                <div class="col-sm-8">
-	                                	<select name="indentityType" class="form-control">
-	                                		<option value="01" <#if member.indentityType == "01">selected="selected"</#if>>身份证</option>
-	                                		<option value="02" <#if member.indentityType == "02">selected="selected"</#if>>因私护照</option>
-	                                		<option value="03" <#if member.indentityType == "03">selected="selected"</#if>>因公护照</option>
-	                                		<option value="04" <#if member.indentityType == "04">selected="selected"</#if>>香港永久性居民身份证</option>
-	                                		<option value="05" <#if member.indentityType == "05">selected="selected"</#if>>澳门永久性居民身份证</option>
-	                                		<option value="06" <#if member.indentityType == "06">selected="selected"</#if>>港澳居民来往内地通行证</option>
-	                                		<option value="07" <#if member.indentityType == "07">selected="selected"</#if>>台湾居民来往大陆通行证</option>
-	                                		<option value="08" <#if member.indentityType == "08">selected="selected"</#if>>外国人永久居住证</option>
-	                                		<option value="09" <#if member.indentityType == "09">selected="selected"</#if>>其他证件</option>
+										<select name="identityType" class="form-control" <#if member?exists> disabled="disabled"</#if>>
+	                                		<#list identityTypeList as identityType> 
+		                        				<option value="${identityType.code}" <#if member.identityType == identityType.code>selected="selected"</#if>>${identityType.value}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">证件号：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="indentityNo" name="indentityNo" class="form-control" type="text" value="${member.indentityNo}">
+	                                    <input id="identityNo" name="identityNo" class="form-control" type="text" value="${member.identityNo}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">性别：</label>
 	                                <div class="col-sm-8">
-	                                	<select name="sex" class="form-control">
-	                                		<option value = 1 <#if member.sex == 1>selected="selected"</#if>>男</option>
-	                                		<option value = 2 <#if member.sex == 2>selected="selected"</#if>>女</option>
+	                                	<select name="sex" class="form-control" <#if member?exists> disabled="disabled"</#if>>
+		                                	<#list sexList as sex> 
+		                        				<option value = ${sex.code} <#if member.sex == sex.code>selected="selected"</#if>>${sex.value!}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">地址：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="address" name="address" class="form-control" type="text" value="${member.address}">
+	                                    <input id="address" name="address" class="form-control" type="text" value="${member.address}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">用户状态：</label>
 	                                <div class="col-sm-8">
-	                                	<select name="userStatus" class="form-control">
-	                                		<option value = "00" <#if member.userStatus == "00">selected="selected"</#if>>正常</option>
-	                                		<option value = "01" <#if member.userStatus == "01">selected="selected"</#if>>冻结</option>
+	                                	<select name="userStatus" class="form-control" <#if member?exists> disabled="disabled"</#if>>
+	                                		<#list statusList as status> 
+		                        				<option value = ${status.code} <#if member.userStatus == status.code>selected="selected"</#if>>${status.value!}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">电子邮件：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="email" name="email" class="form-control" value="${member.email}">
+	                                    <input id="email" name="email" class="form-control" value="${member.email}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">理财等级：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="financialLevel" name="financialLevel" class="form-control" onkeyup="value=value.replace(/\D|^0/g,'')" placeholder="请输入数字0-5" value="${member.financialLevel}">
+	                                    <input id="financialLevel" name="financialLevel" class="form-control" onkeyup="value=value.replace(/\D|^0/g,'')" placeholder="请输入数字0-5" value="${member.financialLevel}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">注册日期：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="registerDate" name="registerDate" class="laydate-icon form-control layer-date" value="${member.registerDate}">
+	                                    <input id="registerDate" name="registerDate" class="laydate-icon form-control layer-date" value="${member.registerDate}" <#if member?exists> readonly="readonly"</#if>>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">工作人员编号：</label>
 	                                <div class="col-sm-8">
-	                                	<input id="staffNo" name="staffNo" class="form-control" value="${member.staffNo}" readonly="readonly">
+	                                	<!--<input id="staffNo" name="staffNo" class="form-control" value="${member.staffNo}" readonly="readonly">-->
+	                                	<select name="staffNo" class="form-control">
+	                                		<!--<#assign c= ["G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]> 
+											<#list c as i> 
+												<option value="${i}" <#if member.staffNo == "${i}">selected="selected"</#if>>${i}</option>
+											</#list>-->
+											<#list staffList as staff> 
+												<option value="${staff.staffNo}" <#if member.staffNo == "${staff.staffNo}">selected="selected"</#if>>${staff.staffNo}</option>
+											</#list>
+	                                	</select>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
@@ -176,31 +181,26 @@
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">证件类型：</label>
 	                                <div class="col-sm-8">
-	                                	<select name="indentityType" class="form-control">
-	                                		<option value="01" <#if member.indentityType == "01">selected="selected"</#if>>身份证</option>
-	                                		<option value="02" <#if member.indentityType == "02">selected="selected"</#if>>因私护照</option>
-	                                		<option value="03" <#if member.indentityType == "03">selected="selected"</#if>>因公护照</option>
-	                                		<option value="04" <#if member.indentityType == "04">selected="selected"</#if>>香港永久性居民身份证</option>
-	                                		<option value="05" <#if member.indentityType == "05">selected="selected"</#if>>澳门永久性居民身份证</option>
-	                                		<option value="06" <#if member.indentityType == "06">selected="selected"</#if>>港澳居民来往内地通行证</option>
-	                                		<option value="07" <#if member.indentityType == "07">selected="selected"</#if>>台湾居民来往大陆通行证</option>
-	                                		<option value="08" <#if member.indentityType == "08">selected="selected"</#if>>外国人永久居住证</option>
-	                                		<option value="09" <#if member.indentityType == "09">selected="selected"</#if>>其他证件</option>
+	                                	<select name="identityType" class="form-control">
+	                                		<#list identityTypeList as identityType> 
+		                        				<option value="${identityType.code}">${identityType.value}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">证件号：</label>
 	                                <div class="col-sm-8">
-	                                    <input id="indentityNo" name="indentityNo" class="form-control" type="text">
+	                                    <input id="identityNo" name="identityNo" class="form-control" type="text">
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label class="col-sm-3 control-label">性别：</label>
 	                                <div class="col-sm-8">
 	                                	<select name="sex" class="form-control">
-	                                		<option value = 1>男</option>
-	                                		<option value = 2>女</option>
+	                                		<#list sexList as sex> 
+		                        				<option value = ${sex.code}>${sex.value!}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -214,8 +214,9 @@
 	                                <label class="col-sm-3 control-label">用户状态：</label>
 	                                <div class="col-sm-8">
 	                                	<select name="userStatus" class="form-control">
-	                                		<option value = "00">正常</option>
-	                                		<option value = "01">冻结</option>
+	                                		<#list statusList as status> 
+		                        				<option value = ${status.code}>${status.value!}</option>
+											</#list>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -238,17 +239,6 @@
 	                                    <input id="registerDate" name="registerDate" class="laydate-icon form-control layer-date">
 	                                </div>
 	                            </div>
-	                            <!--<div class="form-group">
-	                                <label class="col-sm-3 control-label">工作人员编号：</label>
-	                                <div class="col-sm-8">
-	                                	<select name="staffNo" class="form-control" disabled="disabled">
-	                                		<#assign c= ["G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]> 
-											<#list c as i> 
-												<option value="${i}" <#if member.staffNo == "${i}">selected="selected"</#if>>${i}</option>
-											</#list>
-	                                	</select>
-	                                </div>
-	                            </div>-->
 	                            <div class="form-group">
 	                                <div class="col-sm-8 col-sm-offset-3">
 	                                    <button class="btn btn-primary" type="submit">提交</button>
@@ -380,10 +370,10 @@
     	      	realName: {
     	        required: true,
     	      },
-    	      	indentityType: {
+    	      	identityType: {
     	        required: true
     	      },
-    	      	indentityNo: {
+    	      	identityNo: {
     	        required: true
     	      },
     	      	sex: {

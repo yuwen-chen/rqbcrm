@@ -1,4 +1,4 @@
-package com.crm.manager.config.exception;
+package com.crm.manager.common.exception;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,38 +16,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.manager.common.JsonResult;
+import com.crm.manager.common.utils.RequestUtils;
 
 /**
- * Description:自定义统一错误控制器
+ * 自定义统一错误控制器
  *
  * @author Jin
- * @create 2017-04-09
+ * @create 2018-02-06
  **/
 @ControllerAdvice
 public class DefaultExceptionHandler {
 
 
-   /* *//**
+	/**
      * 接口异常
      * @param e
      * @return
-     *//*
+     */
     @ExceptionHandler({ApiException.class})
     @ResponseBody
     public JsonResult ApiException(ApiException e){
         return JsonResult.failure(e.getCode(), e.getMessage());
     }
+    
+    /**
+     * 业务异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({BusinessException.class})
+    @ResponseBody
+    public JsonResult BusinessException(BusinessException e){
+        return JsonResult.failure(e.getCode(), e.getMessage());
+    }
 
-    *//**
+/*    *//**
      * 系统异常
      * @param e
      * @return
      *//*
     @ExceptionHandler({SystemException.class})
-    public ModelAndView  SystemException(Exception e,HttpServletRequest request,HttpServletResponse response){
+    public ModelAndView SystemException(Exception e,HttpServletRequest request,HttpServletResponse response){
 
-            if (ControllerUtil.isAjaxRequest(request)) {
-                ControllerUtil.renderErrorJson(e.getMessage(),response);
+            if (RequestUtils.isAjaxRequest(request)) {
+                RequestUtils.writeExcepetion(response, 500, e.getMessage());;
                 return null;
             } else {
                 return this.renderErrorView(500,"HTTP-Internal Server Error",e.getMessage());
@@ -63,7 +75,7 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({NullPointerException.class})
     public ModelAndView DefaultException(Exception e,HttpServletRequest request,HttpServletResponse response) {
         if (ControllerUtil.isAjaxRequest(request)) {
-              输出JSON 
+              //输出JSON 
             ControllerUtil.renderErrorJson(e.getMessage(),response);
             return null;
         } else {
@@ -77,7 +89,7 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({ UnauthenticatedException.class, AuthenticationException.class })
     public ModelAndView authenticationException(Exception e,HttpServletRequest request, HttpServletResponse response) {
         if (ControllerUtil.isAjaxRequest(request)) {
-              输出JSON 
+             // 输出JSON 
             ControllerUtil.renderTimeoutJson("对不起，请登录后再访问！",response);
             return null;
         } else {
@@ -91,7 +103,7 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({ UnauthorizedException.class, AuthorizationException.class })
     public ModelAndView authorizationException(Exception e,HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (ControllerUtil.isAjaxRequest(request)) {
-             输出JSON 
+            // 输出JSON 
            ControllerUtil.renderErrorJson("对不起，您没有此权限",response);
            return null;
         } else {
@@ -101,7 +113,7 @@ public class DefaultExceptionHandler {
     }
 
     private ModelAndView renderErrorView(Integer errorCode,String error,String message){
-        ModelAndView view =new ModelAndView("error");
+        ModelAndView view =new ModelAndView("500");
         view.addObject("status",errorCode);
         view.addObject("error",error);
         view.addObject("message",message);

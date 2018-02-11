@@ -166,25 +166,40 @@
 			        title: "工作人员名称",
 			        field: "name"
 			    },{
+			    	title: "app平台",
+			        field: "appPlatform",
+			        formatter: function (value, row, index) {
+			        	var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list appPlatformList as appPlatform> 
+				        	if(value =="${appPlatform.type}"){
+				        		return '<span class="'+color[${appPlatform_index}]+'">${appPlatform.appName}</span>';
+				        	}
+						</#list>
+                    }
+			    },{
 			        title: "手机号",
 			        field: "phone"
 			    },{
 			        title: "性别",
 			        field: "sex",
 			        formatter: function (value, row, index) {
-                        if (value == 1) {
-                        	return '<span class="label label-info">男</span>';
-                        }
-                    	return '<span class="label label-danger">女</span>';
+			        	var color = ["label label-info","label label-danger"];
+				        <#list sexList as sex> 
+				        	if(value =="${sex.code}"){
+				        		return '<span class="'+color[${sex_index}]+'">${sex.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			    	title: "状态",
 			        field: "status",
 			        formatter: function (value, row, index) {
-                        if (value == '00') {
-                        	return '<span class="label label-info">正常</span>';
-                        }
-                    	return '<span class="label label-danger">失效</span>';
+			        	var color = ["label label-info","label label-danger"];
+			        	<#list statusList as status> 
+				        	if(value =="${status.code}"){
+				        		return '<span class="'+color[${status_index}]+'">${status.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "邮箱",
@@ -197,7 +212,6 @@
 			        field: "empty",
                     formatter: function (value, row, index) {
                     	var operateHtml = '<@shiro.hasPermission name="crm:staff:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
                     	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:staff:allotrecords"><button class="btn btn-info btn-xs" type="button" onclick="allotRecords(\''+row.staffNo+"','"+row.appPlatform+'\')"><i class="fa fa-bars"></i>&nbsp;分配记录</button></@shiro.hasPermission>';
                         return operateHtml;
                     }

@@ -167,26 +167,23 @@
 			        title: "app平台",
 			        field: "appPlatform",
 			        formatter: function (value, row, index) {
-                        if (value == 'A') {
-                        	return '<span class="label label-info">融侨宝</span>';
-                        }
-                        if (value == 'B') {
-                        	return '<span class="label label-info">融侨财富</span>';
-                        }
-                        if (value == 'C') {
-                        	return '<span class="label label-info">融侨普惠</span>';
-                        }
+                        var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list appPlatformList as appPlatform> 
+				        	if(value =="${appPlatform.type}"){
+				        		return '<span class="'+color[${appPlatform_index}]+'">${appPlatform.appName}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			    	title: "是否投资理财",
 			        field: "isInvestment",
 			        formatter: function (value, row, index) {
-                        if (value == 0) {
-                        	return '<span>否</span>';
-                        }
-                        if (value == 1) {
-                        	return '<span>是</span>';
-                        }
+                        var color = ["label label-danger","label label-info"];
+				        <#list IsInvestmentList as IsInvestment> 
+				        	if(value =="${IsInvestment.code}"){
+				        		return '<span class="'+color[${IsInvestment_index}]+'">${IsInvestment.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "理财等级",
@@ -204,10 +201,12 @@
 			        title: "性别",
 			        field: "sex",
 			        formatter: function (value, row, index) {
-                        if (value == 1) {
-                        	return '<span class="label label-info">男</span>';
-                        }
-                    	return '<span class="label label-danger">女</span>';
+			        	var color = ["label label-info","label label-danger"];
+				        <#list sexList as sex> 
+				        	if(value =="${sex.code}"){
+				        		return '<span class="'+color[${sex_index}]+'">${sex.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "工作人员编号",

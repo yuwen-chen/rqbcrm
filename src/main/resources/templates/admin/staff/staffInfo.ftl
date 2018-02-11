@@ -80,8 +80,9 @@
                                 <label class="col-sm-3 control-label">性别：</label>
                                 <div class="col-sm-8">
                                 	<select name="sex" class="form-control">
-                                		<option value = 1 <#if staff.sex == 1>selected="selected"</#if>>男</option>
-                                		<option value = 2 <#if staff.sex == 2>selected="selected"</#if>>女</option>
+                                		<#list sexList as sex> 
+	                        				<option value = ${sex.code} <#if staff.sex == sex.code>selected="selected"</#if>>${sex.value!}</option>
+										</#list>
                                 	</select>
                                 </div>
                             </div>
@@ -89,8 +90,9 @@
                                 <label class="col-sm-3 control-label">状态：</label>
                                 <div class="col-sm-8">
                                 	<select name="status" class="form-control">
-                                		<option value = "00" <#if staff.status == "00">selected="selected"</#if>>正常</option>
-                                		<option value = "01" <#if staff.status == "01">selected="selected"</#if>>失效</option>
+                                		<#list statusList as status> 
+	                        				<option value = ${status.code} <#if staff.status == status.code>selected="selected"</#if>>${status.value!}</option>
+										</#list>
                                 	</select>
                                 </div>
                             </div>

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.manager.common.exception.BusinessException;
 import com.crm.manager.investment.dao.IInvestmentRecordsDao;
 import com.crm.manager.investment.dto.InvestmentRecordsDTO;
 import com.crm.manager.investment.service.IInvestmentRecordsService;
@@ -27,38 +28,59 @@ public class InvestmentRecordsServiceImpl implements IInvestmentRecordsService{
 
 	@Override
 	@Transactional
-	public boolean addInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO) {
-		if(investmentRecordsDTO == null || StringUtils.isBlank(investmentRecordsDTO.getMemberId())){
-			return false;
+	public void addInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO) throws BusinessException{
+		
+		if(investmentRecordsDTO == null){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
 		}
+		if(StringUtils.isBlank(investmentRecordsDTO.getAppPlatform())){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"app平台不能为空");
+		}
+		if(StringUtils.isBlank(investmentRecordsDTO.getMemberId())){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"用户ID不能为空");
+		}
+		if(StringUtils.isBlank(investmentRecordsDTO.getOrderNo())){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"订单号不能为空");
+		}
+		investmentRecordsDTO.setInvestmentRecordsTable(investmentRecordsDTO.getAppPlatform());
+		InvestmentRecordsDTO exist = investmentRecordsDao.queryInvestmentRecordsByOrderNo(investmentRecordsDTO.getInvestmentRecordsTable(), investmentRecordsDTO.getOrderNo());
+		if(exist != null){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"订单号重复");
+		}
+		
 		//更新编码表是投资理财
-		if(investmentRecordsDao.insertInvestmentRecords(investmentRecordsDTO)> 0) {
-			MemberCodeDTO memberCodeDTO = new MemberCodeDTO();
-			memberCodeDTO.setMemberId(investmentRecordsDTO.getMemberId());
-			memberCodeDTO.setMemberCodeTable(investmentRecordsDTO.getAppPlatform());
-			MemberCodeDTO memberCode = memberCodeService.queryMemberCodeByMemberId(memberCodeDTO);
-			int investmentAmount = 0;
-			if(memberCode != null){
-				String amount = memberCode.getInvestmentAmount();
-				investmentAmount = Integer.parseInt(amount != null ? amount : "0");
-			}
-			memberCodeDTO.setIsInvestment(1);
-			BigDecimal totalAmount = investmentRecordsDTO.getTotalPrice();
-			if (totalAmount != null) {
-				//投资金额(1-9999元起算1w=0001,逢1w进1)
-				investmentAmount = investmentAmount + getInvestmentAmount(totalAmount);
-				//格式化"0000"
-				memberCodeDTO.setInvestmentAmount(String.format("%04d", investmentAmount));
-			}
-			memberCodeService.updateMemberCode(memberCodeDTO);
+		investmentRecordsDao.insertInvestmentRecords(investmentRecordsDTO);
+		MemberCodeDTO memberCodeDTO = new MemberCodeDTO();
+		memberCodeDTO.setMemberId(investmentRecordsDTO.getMemberId());
+		memberCodeDTO.setMemberCodeTable(investmentRecordsDTO.getAppPlatform());
+		MemberCodeDTO memberCode = memberCodeService.queryMemberCodeByMemberId(memberCodeDTO);
+		if(memberCode == null){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"没有对于的用户ID");
 		}
-		return false;
+		int investmentAmount = 0;
+		String amount = memberCode.getInvestmentAmount();
+		investmentAmount = Integer.parseInt(amount != null ? amount : "0");
+		memberCode.setIsInvestment(1);
+		BigDecimal totalAmount = investmentRecordsDTO.getTotalPrice();
+		if (totalAmount != null) {
+			//投资金额(1-9999元起算1w=0001,逢1w进1)
+			investmentAmount = investmentAmount + getInvestmentAmount(totalAmount);
+			//格式化"0000"
+			memberCode.setInvestmentAmount(String.format("%04d", investmentAmount));
+		}
+		memberCodeService.updateMemberCode(memberCode);
 	}
 
 	@Override
-	public PageInfo<InvestmentRecordsDTO> queryInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO) {
+	public PageInfo<InvestmentRecordsDTO> queryInvestmentRecords(InvestmentRecordsDTO investmentRecordsDTO)throws BusinessException {
 		if(investmentRecordsDTO == null){
-			return null;
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+		}
+		if(investmentRecordsDTO.getPageNumber() ==null){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"当前页不能为空");
+		}
+		if(investmentRecordsDTO.getPageSize() == null){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"每页条数不能为空");
 		}
 		PageHelper.startPage(investmentRecordsDTO.getPageNumber(), investmentRecordsDTO.getPageSize());  
 		return new PageInfo<InvestmentRecordsDTO>(investmentRecordsDao.queryInvestmentRecords(investmentRecordsDTO));

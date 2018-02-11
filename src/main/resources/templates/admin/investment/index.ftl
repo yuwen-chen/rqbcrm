@@ -32,11 +32,6 @@
                         <h5>投资记录管理</h5>
                     </div>
                     <div class="ibox-content">
-                        <p>
-                        	<@shiro.hasPermission name="crm:staff:add">
-                        		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
-                        	</@shiro.hasPermission>
-                        </p>
                         <hr>
                         <!--查询窗体-->
                         <div>
@@ -173,33 +168,40 @@
 			        field: "memberId"
 			    },{
 			        title: "订单状态",
-			        field: "orderStatus"
+			        field: "orderStatus",
+			        formatter: function (value, row, index) {
+			        	var color = ["label label-info","label label-danger"];
+				        <#list orderStatusList as orderStatus> 
+				        	if(value =="${orderStatus.code}"){
+				        		return '<span class="'+color[${orderStatus_index}]+'">${orderStatus.value}</span>';
+				        	}
+						</#list>
+                    }
 			    },{
 			        title: "app平台",
 			        field: "appPlatform",
 			        formatter: function (value, row, index) {
-                        if (value == 'A') {
-                        	return '<span class="label label-info">融侨宝</span>';
-                        }
-                        if (value == 'B') {
-                        	return '<span class="label label-info">融侨财富</span>';
-                        }
-                        if (value == 'C') {
-                        	return '<span class="label label-info">融侨普惠</span>';
-                        }
+			        	var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list appPlatformList as appPlatform> 
+				        	if(value =="${appPlatform.type}"){
+				        		return '<span class="'+color[${appPlatform_index}]+'">${appPlatform.appName}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "产品ID",
 			        field: "productId"
 			    },{
 			    	title: "订单类型",
-			        field: "orderType"
-			        /*formatter: function (value, row, index) {
-                        if (value == '00') {
-                        	return '<span class="label label-info">正常</span>';
-                        }
-                    	return '<span class="label label-danger">失效</span>';
-                    }*/
+			        field: "orderType",
+			        formatter: function (value, row, index) {
+			        	var color = ["label label-info","label label-warning"];
+                        <#list orderTypeList as orderType> 
+				        	if(value =="${orderType.code}"){
+				        		return '<span class="'+color[${orderType_index}]+'">${orderType.value}</span>';
+				        	}
+						</#list>
+                    }
 			    },{
 			        title: "订单唯一标示token",
 			        field: "orderToken"

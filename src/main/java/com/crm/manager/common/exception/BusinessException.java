@@ -1,17 +1,16 @@
-package com.crm.manager.config.exception;
+package com.crm.manager.common.exception;
 
 /**
- * Description:自定义Exception,主要是为了返回JSON信息
- *
+ * 业务异常
  * @author chen
- * @create 2018-01-27
+ * @create 2018-02-06
  **/
-public class ApiException extends RuntimeException{
-
+public class BusinessException extends RuntimeException{
+    
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -2591646516742720560L;
+	private static final long serialVersionUID = -5080322628167524660L;
 	
 	//成功code
 	public static final int CODE_SUCCESS = 200;
@@ -21,26 +20,26 @@ public class ApiException extends RuntimeException{
 	private int code; // 异常对应的返回码
 	private String message; // 异常对应的描述信息
 	
-	public ApiException() {
+	public BusinessException() {
 		super();
 	}
 
-	public ApiException(String message) {
+	public BusinessException(String message) {
 		super(message);
 		this.message = message;
 	}
 	
-	public ApiException(int code, String message) {
+	public BusinessException(int code, String message) {
 		super(message);
 		this.code = code;
 		this.message = message;
 	}
 
-	public ApiException(String message, Exception ex) {
+	public BusinessException(String message, Exception ex) {
 		super(message, ex);
 	}
 	
-	public ApiException(int code, String message, Exception ex) {
+	public BusinessException(int code, String message, Exception ex) {
 		super(message, ex);
 		this.code = code;
 		this.message = message;

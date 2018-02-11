@@ -1,10 +1,12 @@
 package com.crm.manager.system.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.crm.manager.common.base.controller.BaseController;
 
+@CrossOrigin
 @Controller
 public class AdminIndexController extends BaseController{
 	@RequestMapping(value ={"/admin/","/admin/index"})

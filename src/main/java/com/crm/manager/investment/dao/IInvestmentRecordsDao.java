@@ -24,7 +24,7 @@ public interface IInvestmentRecordsDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert IGNORE into ${investmentRecordsTable} ( " + 
+    		"insert into ${investmentRecordsTable} ( " + 
     		"id, " +
     		"member_id, " +
     		"order_no, " +

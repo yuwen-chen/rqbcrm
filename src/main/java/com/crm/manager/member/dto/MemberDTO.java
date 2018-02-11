@@ -30,12 +30,12 @@ public class MemberDTO  extends BaseDTO{
     /**
      * 证件类型
      */
-    private String indentityType;
+    private String identityType;
     
     /**
      * 证件号
      */
-    private String indentityNo;
+    private String identityNo;
     
     /**
      * 性别(1:男, 2:女)
@@ -108,20 +108,20 @@ public class MemberDTO  extends BaseDTO{
 		this.phone = phone;
 	}
 
-	public String getIndentityType() {
-		return indentityType;
+	public String getIdentityType() {
+		return identityType;
 	}
 
-	public void setIndentityType(String indentityType) {
-		this.indentityType = indentityType;
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
 	}
 
-	public String getIndentityNo() {
-		return indentityNo;
+	public String getIdentityNo() {
+		return identityNo;
 	}
 
-	public void setIndentityNo(String indentityNo) {
-		this.indentityNo = indentityNo;
+	public void setIdentityNo(String identityNo) {
+		this.identityNo = identityNo;
 	}
 
 	public Integer getSex() {
@@ -200,8 +200,8 @@ public class MemberDTO  extends BaseDTO{
 
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", realName=" + realName + ", phone=" + phone + ", indentityType="
-				+ indentityType + ", indentityNo=" + indentityNo + ", sex=" + sex + ", userStatus=" + userStatus
+		return "MemberDTO [id=" + id + ", realName=" + realName + ", phone=" + phone + ", identityType="
+				+ identityType + ", indentityNo=" + identityNo + ", sex=" + sex + ", userStatus=" + userStatus
 				+ ", address=" + address + ", email=" + email + ", appPlatform=" + appPlatform + ", financialLevel="
 				+ financialLevel + ", registerDate=" + registerDate + ", staffNo=" + staffNo + ", memberTable="
 				+ memberTable + "]";

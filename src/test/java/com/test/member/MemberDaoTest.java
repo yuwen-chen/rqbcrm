@@ -32,8 +32,8 @@ public class MemberDaoTest {
 			member.setId("UID000"+i);
 			member.setPhone("13526455623");
 			member.setRealName("张三"+i);
-			member.setIndentityType("01");
-			member.setIndentityNo("315645894522244");
+			member.setIdentityType("01");
+			member.setIdentityNo("315645894522244");
 			member.setSex(1);
 			member.setAddress("上海");
 			member.setUserStatus("01");
@@ -54,8 +54,8 @@ public class MemberDaoTest {
 		member.setId("UID0001");
 		member.setPhone("4444444444444");
 		member.setRealName("张三aaaaaa");
-		member.setIndentityType("01");
-		member.setIndentityNo("315645894522244");
+		member.setIdentityType("01");
+		member.setIdentityNo("315645894522244");
 		member.setSex(1);
 		member.setAddress("上海");
 		member.setUserStatus("01");
@@ -79,8 +79,8 @@ public class MemberDaoTest {
 	    member.setId("UID0001");
 		member.setPhone("13526455623");
 		member.setRealName("张三1");
-		member.setIndentityType("01");
-		member.setIndentityNo("315645894522244");
+		member.setIdentityType("01");
+		member.setIdentityNo("315645894522244");
 		member.setSex(1);
 		member.setAddress("上海");
 		member.setUserStatus("01");

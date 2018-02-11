@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.util.StringUtils;
@@ -120,6 +122,9 @@ public class MD5Utils {
 		
 		String str = String.format("%04d", 5);
 		System.out.println(str);
+		
+		String date =new SimpleDateFormat("yyMM").format(new Date());
+		System.out.println(date);
 	}
 	
 }

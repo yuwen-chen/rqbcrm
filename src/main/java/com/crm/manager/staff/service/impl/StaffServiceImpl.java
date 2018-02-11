@@ -1,9 +1,12 @@
 package com.crm.manager.staff.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crm.manager.common.exception.BusinessException;
 import com.crm.manager.staff.dao.IStaffDao;
 import com.crm.manager.staff.dto.StaffDTO;
 import com.crm.manager.staff.service.IStaffService;
@@ -17,9 +20,10 @@ public class StaffServiceImpl implements IStaffService{
 	private IStaffDao staffDao;
 
 	@Override
-	public boolean editStaff(StaffDTO staffDTO) {
+	public boolean editStaff(StaffDTO staffDTO)throws BusinessException {
 		if(staffDTO == null){
-			return false;
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+			//return false;
 		}
 		if (staffDTO.getId() == null){
 			return staffDao.insertStaff(staffDTO) > 0;
@@ -29,34 +33,46 @@ public class StaffServiceImpl implements IStaffService{
 	}
 
 	@Override
-	public PageInfo<StaffDTO> queryStaff(StaffDTO staffDTO) {
+	public PageInfo<StaffDTO> queryStaff(StaffDTO staffDTO)throws BusinessException {
 		if(staffDTO == null){
-			return null;
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+			//return null;
 		}
 		PageHelper.startPage(staffDTO.getPageNumber(), staffDTO.getPageSize()); 
 		return new PageInfo<StaffDTO>(staffDao.queryStaff(staffDTO));
 	}
 	
 	@Override
-	public StaffDTO queryStaffByStaffNo(StaffDTO staffDTO) {
+	public List<StaffDTO> queryAllStaff(String staffTable)throws BusinessException{
+		if(StringUtils.isBlank(staffTable)){
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+			//return null;
+		}
+		return staffDao.queryAllStaff(staffTable);
+	}
+	
+	@Override
+	public StaffDTO queryStaffByStaffNo(StaffDTO staffDTO)throws BusinessException {
 		if(staffDTO == null || StringUtils.isBlank(staffDTO.getStaffTable()) 
 				|| StringUtils.isBlank(staffDTO.getStaffNo())){
-			return null;
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+			//return null;
 		}
 		return staffDao.queryStaffByStaffNo(staffDTO.getStaffTable(), staffDTO.getStaffNo());
 	}
 
 	@Override
-	public boolean removeStaff(StaffDTO staffDTO) {
+	public boolean removeStaff(StaffDTO staffDTO)throws BusinessException {
 		if(staffDTO == null || StringUtils.isBlank(staffDTO.getStaffTable()) 
 				|| StringUtils.isBlank(staffDTO.getStaffNo())){
-			return false;
+			throw new BusinessException(BusinessException.CODE_FAILURED,"参数错误");
+			//return false;
 		}
 		return staffDao.deleteStaffByStaffNo(staffDTO.getStaffTable(), staffDTO.getStaffNo()) > 0;
 	}
 
 	@Override
-	public StaffDTO queryMinMemberNumStaff(String staffTable) {
+	public StaffDTO queryMinMemberNumStaff(String staffTable)throws BusinessException {
 		return staffDao.queryMinMemberNumStaff(staffTable);
 	}
 

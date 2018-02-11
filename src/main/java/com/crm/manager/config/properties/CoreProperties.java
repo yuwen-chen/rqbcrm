@@ -23,7 +23,7 @@ public class CoreProperties {
 	
 	
 	@Value("${sign.match.url}")
-	private List<String> signMatchUrl;
+	private String signMatchUrl;
 	
 	@Value("${img.upload.path}")
 	private String imgUploadPath;
@@ -36,11 +36,11 @@ public class CoreProperties {
 		this.appUrl = appUrl;
 	}
 
-	public List<String> getSignMatchUrl() {
+	public String getSignMatchUrl() {
 		return signMatchUrl;
 	}
 
-	public void setSignMatchUrl(List<String> signMatchUrl) {
+	public void setSignMatchUrl(String signMatchUrl) {
 		this.signMatchUrl = signMatchUrl;
 	}
 

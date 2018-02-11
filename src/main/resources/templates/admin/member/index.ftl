@@ -170,18 +170,29 @@
 			        field: "phone"
 			    },{
 			        title: "证件类型",
-			        field: "indentityType"
+			        field: "identityType",
+			        formatter: function (value, row, index) {
+                        var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list identityTypeList as identityType> 
+				        	if(value =="${identityType.code}"){
+				        		return '<span class="'+color[${identityType_index}%3]+'">${identityType.value}</span>';
+				        	}
+						</#list>
+                    }
+			        
 			    },{
 			    	title: "证件号",
-			        field: "indentityNo"
+			        field: "identityNo"
 			    },{
 			        title: "性别",
 			        field: "sex",
 			        formatter: function (value, row, index) {
-                        if (value == 1) {
-                        	return '<span class="label label-info">男</span>';
-                        }
-                    	return '<span class="label label-danger">女</span>';
+                        var color = ["label label-info","label label-danger"];
+				        <#list sexList as sex> 
+				        	if(value =="${sex.code}"){
+				        		return '<span class="'+color[${sex_index}]+'">${sex.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "地址",
@@ -190,10 +201,12 @@
 			    	title: "用户状态",
 			        field: "userStatus",
 			        formatter: function (value, row, index) {
-                        if (value == '00') {
-                        	return '<span class="label label-info">正常</span>';
-                        }
-                    	return '<span class="label label-danger">冻结</span>';
+                        var color = ["label label-info","label label-danger"];
+			        	<#list statusList as status> 
+				        	if(value =="${status.code}"){
+				        		return '<span class="'+color[${status_index}]+'">${status.value}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "邮箱",
@@ -202,15 +215,12 @@
 			        title: "app平台",
 			        field: "appPlatform",
 			        formatter: function (value, row, index) {
-                        if (value == 'A') {
-                        	return '<span class="label label-info">融侨宝</span>';
-                        }
-                        if (value == 'B') {
-                        	return '<span class="label label-info">融侨财富</span>';
-                        }
-                        if (value == 'C') {
-                        	return '<span class="label label-info">融侨普惠</span>';
-                        }
+			        	var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list appPlatformList as appPlatform> 
+				        	if(value =="${appPlatform.type}"){
+				        		return '<span class="'+color[${appPlatform_index}]+'">${appPlatform.appName}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			    	title: "理财等级",
@@ -227,7 +237,6 @@
 			        field: "empty",
                     formatter: function (value, row, index) {
                     	var operateHtml = '<@shiro.hasPermission name="crm:member:edit"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                    	operateHtml = operateHtml + '<@shiro.hasPermission name="crm:member:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.id+"','"+row.appPlatform+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;</@shiro.hasPermission>';
                         return operateHtml;
                     }
 			    }]

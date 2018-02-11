@@ -23,12 +23,12 @@ public interface IMemberDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert IGNORE into ${memberTable} ( " + 
+    		"insert into ${memberTable} ( " + 
     		"id, " +
     		"real_name, " +
     		"phone, " +
-    		"indentity_type, " +
-    		"indentity_no, " +
+    		"identity_type, " +
+    		"identity_no, " +
     		"sex, " +
     		"address, " +
 		    "	<if test='userStatus != null'>" + 
@@ -46,8 +46,8 @@ public interface IMemberDao{
             "#{id}, "+
     		"#{realName}, " +
             "#{phone}, " +
-    		"#{indentityType}, " +
-            "#{indentityNo}, " +
+    		"#{identityType}, " +
+            "#{identityNo}, " +
     		"#{sex}, " +
             "#{address}, " +
 		    "	<if test='userStatus != null'>" + 
@@ -81,11 +81,11 @@ public interface IMemberDao{
 		    "	<if test='phone != null'>" + 
 		    "		phone = #{phone}, " +
 	        "	</if>" +
-		    "	<if test='indentityType != null'>" + 
-		    "		indentity_type = #{indentityType}, " +
+		    "	<if test='identityType != null'>" + 
+		    "		identity_type = #{identityType}, " +
 	        "	</if>" +
-		    "	<if test='indentityNo != null'>" + 
-		    "		indentity_no = #{indentityNo}, " +
+		    "	<if test='identityNo != null'>" + 
+		    "		identity_no = #{identityNo}, " +
 	        "	</if>" +
 		    "	<if test='sex != null'>" + 
 		    "		sex = #{sex}, " +
@@ -122,8 +122,8 @@ public interface IMemberDao{
         @Result(property = "id", column = "id"),
         @Result(property = "phone", column = "phone"),
         @Result(property = "realName", column = "real_name"),
-        @Result(property = "indentityType", column = "indentity_type"),
-        @Result(property = "indentityNo", column = "indentity_no"),
+        @Result(property = "identityType", column = "identity_type"),
+        @Result(property = "identityNo", column = "identity_no"),
         @Result(property = "sex", column = "sex"),
         @Result(property = "address", column = "address"),
         @Result(property = "userStatus", column = "user_status"),
@@ -150,17 +150,11 @@ public interface IMemberDao{
 	        "	<if test='phone != null'>" + 
 	        "		and phone = #{phone} "+
 	        "	</if>" +
-	        "	<if test='indentityType != null'>" + 
-	        "		and indentity_type = #{indentityType} "+
+	        "	<if test='identityType != null'>" + 
+	        "		and identity_type = #{identityType} "+
 	        "	</if>" +
-	        "	<if test='indentityNo != null'>" + 
-	        "		and indentity_no = #{indentityNo} "+
-	        "	</if>" +
-	        "	<if test='sex != null'>" + 
-	        "		and sex = #{sex} "+
-	        "	</if>" +
-	        "	<if test='indentityNo != null'>" + 
-	        "		and indentity_no = #{indentityNo} "+
+	        "	<if test='identityNo != null'>" + 
+	        "		and identity_no = #{identityNo} "+
 	        "	</if>" +
 	        "	<if test='sex != null'>" + 
 	        "		and sex = #{sex} "+
@@ -189,8 +183,8 @@ public interface IMemberDao{
             @Result(property = "id", column = "id"),
             @Result(property = "phone", column = "phone"),
             @Result(property = "realName", column = "real_name"),
-            @Result(property = "indentityType", column = "indentity_type"),
-            @Result(property = "indentityNo", column = "indentity_no"),
+            @Result(property = "identityType", column = "identity_type"),
+            @Result(property = "identityNo", column = "identity_no"),
             @Result(property = "sex", column = "sex"),
             @Result(property = "address", column = "address"),
             @Result(property = "userStatus", column = "user_status"),
@@ -213,8 +207,8 @@ public interface IMemberDao{
             @Result(property = "id", column = "id"),
             @Result(property = "phone", column = "phone"),
             @Result(property = "realName", column = "real_name"),
-            @Result(property = "indentityType", column = "indentity_type"),
-            @Result(property = "indentityNo", column = "indentity_no"),
+            @Result(property = "identityType", column = "identity_type"),
+            @Result(property = "identityNo", column = "identity_no"),
             @Result(property = "sex", column = "sex"),
             @Result(property = "address", column = "address"),
             @Result(property = "userStatus", column = "user_status"),

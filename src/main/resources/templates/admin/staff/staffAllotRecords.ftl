@@ -117,15 +117,12 @@
 			        title: "app平台",
 			        field: "appPlatform",
 			        formatter: function (value, row, index) {
-                        if (value == 'A') {
-                        	return '<span class="label label-info">融侨宝</span>';
-                        }
-                        if (value == 'B') {
-                        	return '<span class="label label-info">金管家</span>';
-                        }
-                        if (value == 'C') {
-                        	return '<span class="label label-info">融侨普惠</span>';
-                        }
+			        	var color = ["label label-info","label label-warning","label label-danger"];
+				        <#list appPlatformList as appPlatform> 
+				        	if(value =="${appPlatform.type}"){
+				        		return '<span class="'+color[${appPlatform_index}]+'">${appPlatform.appName}</span>';
+				        	}
+						</#list>
                     }
 			    },{
 			        title: "会员ID",

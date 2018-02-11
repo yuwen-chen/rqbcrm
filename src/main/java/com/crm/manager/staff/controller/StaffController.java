@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crm.manager.common.JsonResult;
+import com.crm.manager.common.base.controller.BaseController;
 import com.crm.manager.common.enums.AppTableEnum;
+import com.crm.manager.common.enums.SexEnum;
+import com.crm.manager.common.enums.StatusEnum;
+import com.crm.manager.common.exception.BusinessException;
 import com.crm.manager.staff.dto.StaffAllotRecordsDTO;
 import com.crm.manager.staff.dto.StaffDTO;
 import com.crm.manager.staff.service.IStaffAllotRecordsService;
@@ -21,7 +25,7 @@ import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/admin/staff")
-public class StaffController {
+public class StaffController extends BaseController{
 	
 	@Autowired
 	private IStaffService staffService;
@@ -32,6 +36,9 @@ public class StaffController {
 	@RequestMapping(value = { "/", "/index" })
 	public String index(ModelMap map) {
 		map.put("appPlatformList", AppTableEnum.values());
+		map.put("sexList", SexEnum.values());
+		map.put("statusList", StatusEnum.values());
+		map.put("test", 123);
 		return "admin/staff/index";
 	}
 	
@@ -46,6 +53,8 @@ public class StaffController {
 	@RequestMapping(value = "/addview", method = RequestMethod.GET)
 	public String addView(ModelMap map) {
 		map.put("appPlatformList", AppTableEnum.values());
+		map.put("sexList", SexEnum.values());
+		map.put("statusList", StatusEnum.values());
 		return "admin/staff/staffInfo";
 	}
 	
@@ -67,6 +76,8 @@ public class StaffController {
 		StaffDTO staff = staffService.queryStaffByStaffNo(staffDTO);
 		map.put("staff", staff);
 		map.put("appPlatformList", AppTableEnum.values());
+		map.put("sexList", SexEnum.values());
+		map.put("statusList", StatusEnum.values());
 		return "admin/staff/staffInfo";
 	}
 	
@@ -78,8 +89,12 @@ public class StaffController {
 			if(staffService.editStaff(staffDTO)){
 				return JsonResult.success();
 			}
+		} catch (BusinessException e) {
+			log.error(e.getMessage(),e);
+			return JsonResult.failure(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			return JsonResult.failure(e.getMessage());
+			log.error("操作异常",e);
+			return JsonResult.failure("操作异常");
 		}
 		return JsonResult.failure("操作失败！");
 	}
@@ -93,9 +108,12 @@ public class StaffController {
 					return JsonResult.success();
 				}
 			}
+		} catch (BusinessException e) {
+			log.error(e.getMessage(),e);
+			return JsonResult.failure(e.getCode(), e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
-			return JsonResult.failure(e.getMessage());
+			log.error("删除异常",e);
+			return JsonResult.failure("删除异常");
 		}
 		return JsonResult.failure("删除失败！");
 	}
@@ -104,13 +122,14 @@ public class StaffController {
 	public String allotRecords(@PathVariable String appPlatform, @PathVariable String staffNo, ModelMap map) {
 		map.put("appPlatform", appPlatform);
 		map.put("staffNo", staffNo);
+		map.put("appPlatformList", AppTableEnum.values());
 		return "admin/staff/staffAllotRecords";
 	}
 	
 	@RequestMapping(value = "queryAllotrecords", method = RequestMethod.POST)
 	@ResponseBody
 	public List<StaffAllotRecordsDTO> queryAllotRecords(String allotRecordsTable, String staffNo) {
-			return staffAllotRecordsService.queryStaffAllotRecordsByStaffNo(AppTableEnum.getAllotRecordsTableByType(allotRecordsTable), staffNo);
+		return staffAllotRecordsService.queryStaffAllotRecordsByStaffNo(AppTableEnum.getAllotRecordsTableByType(allotRecordsTable), staffNo);
 	}
 
 }

@@ -9,31 +9,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.crm.manager.Application;
-import com.crm.manager.investment.dao.IInvestmentRecordsDao;
 import com.crm.manager.investment.dto.InvestmentRecordsDTO;
+import com.crm.manager.investment.service.IInvestmentRecordsService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class InvestmentRecordsDaoTest {
+public class InvestmentRecordsServiceTest {
 	
 	@Autowired
-	private IInvestmentRecordsDao investmentRecordsDao;
+	private IInvestmentRecordsService investmentRecordsService;
 	
 	
 	@Test
 	public void insertTest(){
 		InvestmentRecordsDTO investmentRecordsDTO = new InvestmentRecordsDTO();
-		investmentRecordsDTO.setMemberId("US201707030000002648");
-		investmentRecordsDTO.setOrderNo("OR201707030000027912");
+		investmentRecordsDTO.setMemberId("UID0004");
+		investmentRecordsDTO.setOrderNo("OR201707030000027924");
 		investmentRecordsDTO.setTitle("余额申购(定期理财)");
-		investmentRecordsDTO.setTotalPrice(new BigDecimal("0.012"));
+		investmentRecordsDTO.setTotalPrice(new BigDecimal("9999"));
 		investmentRecordsDTO.setOrderStatus("apply_ma_to_rf_confirm");
 		investmentRecordsDTO.setProductId("602000020160330001");
-		investmentRecordsDTO.setOrderType("apply_ma_to_rf");
+		investmentRecordsDTO.setOrderType("batch_apply");
 		investmentRecordsDTO.setOrderToken("1e7-b687-8cdcd4b4c61c");
 		investmentRecordsDTO.setChannelTradeId("01201707040000001591");
-		investmentRecordsDTO.setInvestmentRecordsTable("A");
-		investmentRecordsDao.insertInvestmentRecords(investmentRecordsDTO );
+		investmentRecordsDTO.setAppPlatform("A");
+		investmentRecordsService.addInvestmentRecords(investmentRecordsDTO);
 	}
 
 }

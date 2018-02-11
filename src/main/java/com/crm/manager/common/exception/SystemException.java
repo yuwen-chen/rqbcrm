@@ -1,4 +1,4 @@
-package com.crm.manager.config.exception;
+package com.crm.manager.common.exception;
 
 /**
  * Description:系统异常

@@ -24,7 +24,7 @@ public interface IMemberCodeDao{
      * @return
      */
     @Insert("<script>" +
-    		"insert IGNORE into ${memberCodeTable} ( " + 
+    		"insert into ${memberCodeTable} ( " + 
     		"id, " +
     		"member_code, " +
     		"member_id, " +
